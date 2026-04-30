@@ -35,8 +35,11 @@ namespace ZenGrid.UI
         {
             MenuManager.Instance.OpenMenu(MenuType.Gameplay);
 
-            // Optional: Call your ZenGridManager here if it needs to know gameplay started
-            // e.g., ZenGridManager.Instance.StartGame();
+            // Start the gameplay
+            if (ZenGridManager.Instance != null)
+            {
+                ZenGridManager.Instance.StartGame();
+            }
         }
 
         private void OnQuitClicked()

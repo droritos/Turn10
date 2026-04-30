@@ -49,10 +49,23 @@ public class ZenGridManager : MonoBehaviour
     private void Start()
     {
         InitializeGrid();
-        SpawnTrayShapes();
+        // SpawnTrayShapes(); // Removed so shapes don't appear in main menu
         UpdateScore(0);
         gameOverScreen.SetActive(false);
     }
+
+    public bool isGameActive = false;
+
+    public void StartGame()
+    {
+        isGameActive = true;
+        // If shapes weren't spawned, spawn them:
+        if (currentTrayShapes.Count == 0)
+        {
+            SpawnTrayShapes();
+        }
+    }
+
 
     private void InitializeGrid()
     {

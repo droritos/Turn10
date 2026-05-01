@@ -2298,7 +2298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::JuiceManager
   canvasTransform: {fileID: 1541214801}
   mainCamera: {fileID: 519420031}
-  petalParticles: {fileID: 908112062}
+  petalParticles: {fileID: 206069878}
+  sfxSource: {fileID: 0}
   floatingTextPrefab: {fileID: 6997910350533897987, guid: 136a4117a2ac625469e57d951eeb7604, type: 3}
 --- !u!4 &1374126107
 Transform:

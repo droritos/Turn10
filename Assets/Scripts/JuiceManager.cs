@@ -1,3 +1,4 @@
+using Coffee.UIExtensions;
 using UnityEngine;
 using DG.Tweening;
 using ZenGrid;
@@ -7,10 +8,10 @@ public class JuiceManager : MonoBehaviour
     public static JuiceManager Instance;
     
     public Transform canvasTransform;
-    [SerializeField] Camera mainCamera;
-    [SerializeField] ParticleSystem petalParticles; 
     
-    [SerializeField] AudioSource sfxSource;
+    [Header("References")]
+    [SerializeField] Camera mainCamera;
+    [SerializeField] UIParticle petalParticles; 
     [SerializeField] GameObject floatingTextPrefab;
 
     private void Awake()
@@ -18,7 +19,7 @@ public class JuiceManager : MonoBehaviour
         Instance = this;
         if (petalParticles != null)
         {
-            var main = petalParticles.main;
+            var main = petalParticles.particles[0].main;
             main.simulationSpace = ParticleSystemSimulationSpace.World;
             main.scalingMode = ParticleSystemScalingMode.Hierarchy;
         }
@@ -34,16 +35,30 @@ public class JuiceManager : MonoBehaviour
     {
         if (petalParticles != null)
         {
-            if (canvasTransform != null) petalParticles.transform.SetParent(canvasTransform);
-            petalParticles.transform.position = position;
-            
-            // Force local Z to 0 so it's not buried behind the canvas
-            var lp = petalParticles.transform.localPosition;
-            petalParticles.transform.localPosition = new Vector3(lp.x, lp.y, 0);
+            RectTransform ptRect = petalParticles.rectTransform;
+            if (ptRect != null)
+            {
+                // Most robust UI position matching: Use the parent of the particles as the reference
+                RectTransform parentRect = ptRect.parent as RectTransform;
+                if (parentRect != null)
+                {
+                    Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCamera, position);
+                    if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPoint, mainCamera, out var localPoint))
+                    {
+                        ptRect.anchoredPosition = localPoint;
+                        ptRect.localPosition = new Vector3(ptRect.localPosition.x, ptRect.localPosition.y, 0);
+                    }
+                }
+                else
+                {
+                    // Fallback to world position if hierarchy is weird
+                    petalParticles.transform.position = position;
+                }
+            }
 
-            var main = petalParticles.main;
+            var main = petalParticles.particles[0].main;
             main.startColor = color;
-            petalParticles.Emit(15);
+            petalParticles.particles[0].Emit(15);
         }
     }
     
@@ -51,15 +66,28 @@ public class JuiceManager : MonoBehaviour
     {
         if (petalParticles != null)
         {
-            if (canvasTransform != null) petalParticles.transform.SetParent(canvasTransform);
-            petalParticles.transform.position = position;
-            
-            var lp = petalParticles.transform.localPosition;
-            petalParticles.transform.localPosition = new Vector3(lp.x, lp.y, 0);
+            RectTransform ptRect = petalParticles.rectTransform;
+            if (ptRect != null)
+            {
+                RectTransform parentRect = ptRect.parent as RectTransform;
+                if (parentRect != null)
+                {
+                    Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(mainCamera, position);
+                    if (RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPoint, mainCamera, out var localPoint))
+                    {
+                        ptRect.anchoredPosition = localPoint;
+                        ptRect.localPosition = new Vector3(ptRect.localPosition.x, ptRect.localPosition.y, 0);
+                    }
+                }
+                else
+                {
+                    petalParticles.transform.position = position;
+                }
+            }
 
-            var main = petalParticles.main;
+            var main = petalParticles.particles[0].main;
             main.startColor = color;
-            petalParticles.Emit(60);
+            petalParticles.particles[0].Emit(60);
         }
         
         ScreenShake(0.6f, 2f); 
@@ -78,19 +106,6 @@ public class JuiceManager : MonoBehaviour
             ft.Setup(text, color, position, 1.0f, 1.5f, scale);
         }
     }
-
-    // --- AUDIO ---
-
-    public void PlaySound(AudioClip clip)
-    {
-        if (sfxSource != null && clip != null)
-        {
-            sfxSource.PlayOneShot(clip);
-        }
-    }
-    
-    // --- JUICE ---
-
     public void ScreenShake(float duration, float magnitude)
     {
         // Cancel camera shake as requested, only shake the UI

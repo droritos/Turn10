@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,9 +19,12 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private Transform _dragContainer;
 
     private float _timeDown;
-    private float _blockSize = 96f; 
+    private float _blockSize = 100f; // 96 cell + 4 spacing
     private Vector3 _dragOffset;
     private float _trayScale;
+    
+    private Vector2Int _lastValidGridPos;
+    private bool _hasValidGhost;
 
     public ShapeData shapeData => _shapeData;
 
@@ -30,32 +35,34 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         if (_canvasGroup == null) _canvasGroup = gameObject.AddComponent<CanvasGroup>();
         
         _rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        
-        // Find a suitable drag container (JuiceManager usually has the main canvas ref)
-        if (JuiceManager.Instance != null)
-            _dragContainer = JuiceManager.Instance.canvasTransform;
     }
 
     public void Initialize(ShapeData data, Transform parent)
     {
         _shapeData = data.Clone();
         _startParent = parent;
+        
         transform.SetParent(parent, false);
         transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
         
         BuildVisuals();
         
         float maxDim = Mathf.Max(_shapeData.width, _shapeData.height);
-        _trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f); 
+        // Smaller tray scale to avoid overlapping neighbor slots
+        _trayScale = Mathf.Min(0.55f, 3.0f / maxDim * 0.55f); 
         transform.localScale = Vector3.one * _trayScale;
+        
+        gameObject.SetActive(true);
     }
 
     private void BuildVisuals()
     {
-        // Clear old blocks
-        foreach (Transform child in transform)
+        // Clear old visual blocks safely
+        for (int i = transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(child.gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
 
         _rectTransform.sizeDelta = new Vector2(_shapeData.width * _blockSize, _shapeData.height * _blockSize);
@@ -79,7 +86,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
                     // Set visual state using the consolidated script
                     cell.SetState(_shapeData.color, false, false);
-                    cell.SetBackground(new Color(1, 1, 1, 0)); // Transparent bg for tray shapes
+                    cell.SetBackground(new Color(1, 1, 1, 0.4f)); // Subtle bg for tray shapes instead of transparent
                 }
             }
         }
@@ -97,8 +104,12 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         _canvasGroup.alpha = 0.8f;
         _canvasGroup.blocksRaycasts = false;
         
-        // Use the drag container to ensure it stays visible and on top of everything
-        if (_dragContainer != null) transform.SetParent(_dragContainer);
+        if (JuiceManager.Instance != null && JuiceManager.Instance.canvasTransform != null)
+        {
+            _dragContainer = JuiceManager.Instance.canvasTransform;
+            transform.SetParent(_dragContainer);
+        }
+        
         transform.SetAsLastSibling();
         
         if (SoundManager.Instance != null)
@@ -106,17 +117,26 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         
         transform.DOScale(Vector3.one * 1.0f, 0.2f).SetEase(Ease.OutBack);
         
-        _dragOffset = new Vector3(0, 150f, 0); 
-        _rectTransform.position = new Vector3(eventData.position.x, eventData.position.y, 0) + _dragOffset;
-        
+        UpdatePosition(eventData);
         UpdateGhostHint();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!ZenGridManager.Instance.isGameActive) return;
-        _rectTransform.position = new Vector3(eventData.position.x, eventData.position.y, 0) + _dragOffset;
+        UpdatePosition(eventData);
         UpdateGhostHint();
+    }
+
+    private void UpdatePosition(PointerEventData eventData)
+    {
+        Vector2 localPoint;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)_dragContainer, eventData.position, eventData.pressEventCamera, out localPoint))
+        {
+            // Use local coordinates for more predictable movement
+            // Offset the shape slightly upwards so it's not hidden by the finger
+            _rectTransform.anchoredPosition = localPoint + new Vector2(0, 120f); 
+        }
     }
 
     private void UpdateGhostHint()
@@ -125,7 +145,13 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         
         Vector2Int gridPos = GetGridPosition();
         GridSystem.Instance.ClearAllGhosts();
-        GridSystem.Instance.ShowGhost(_shapeData, gridPos.x, gridPos.y);
+        
+        _hasValidGhost = GridSystem.Instance.CanPlaceShape(_shapeData, gridPos.x, gridPos.y);
+        if (_hasValidGhost)
+        {
+            _lastValidGridPos = gridPos;
+            GridSystem.Instance.ShowGhost(_shapeData, gridPos.x, gridPos.y);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -139,22 +165,29 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         }
 
         float timeDelta = Time.time - _timeDown;
-        if (timeDelta < 0.25f)
+        // Reduced threshold for quick placement
+        if (timeDelta < 0.12f)
         {
             Rotate();
             SnapBack();
             return;
         }
 
-        Vector2Int gridPos = GetGridPosition();
-        if (GridSystem.Instance.CanPlaceShape(_shapeData, gridPos.x, gridPos.y))
+        // Use the last valid ghost position for perfect placement
+        if (_hasValidGhost)
         {
+            Debug.Log($"[DraggableShape] Placing at cached ghost position: {_lastValidGridPos}");
+            
             transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
-                ZenGridManager.Instance.OnShapePlaced(this, gridPos.x, gridPos.y);
+                // Return to tray slot parent before disabling to avoid flickers on reuse
+                transform.SetParent(_startParent);
+                transform.localPosition = Vector3.zero;
+                ZenGridManager.Instance.OnShapePlaced(this, _lastValidGridPos.x, _lastValidGridPos.y);
             });
         }
         else
         {
+            Debug.Log($"[DraggableShape] No valid ghost found at {GetGridPosition()}. Snapping back.");
             SnapBack();
         }
     }

@@ -26,6 +26,10 @@ namespace ZenGrid
         public void StartGame()
         {
             isGameActive = true;
+            
+            // Ensure grid is clean and has correct Zen visuals
+            GridSystem.Instance.InitializeGrid();
+
             if (ShapeManager.Instance.ShapesInTray == 0)
             {
                 ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
@@ -34,35 +38,42 @@ namespace ZenGrid
 
         public void OnShapePlaced(DraggableShape shape, int gridX, int gridY)
         {
-            // 1. Logic Placement
-            GridSystem.Instance.PlaceShape(shape.shapeData, gridX, gridY);
-            
-            // 2. Score for placing
-            ScoreManager.Instance.UpdateScore(10);
-
-            // 3. Audio/Visuals
-            if (JuiceManager.Instance != null) JuiceManager.Instance.ScreenShake(0.1f, 5f);
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFX.PlaceShape);
-
-            // 4. Lotus Protocol
-            LotusManager.Instance.SpreadLotus();
-            LotusManager.Instance.OnTurnPassed(ScoreManager.Instance.CurrentPhase);
-
-            // 5. Line Checking
-            CheckLines();
-
-            // 6. Tray Management
-            ShapeManager.Instance.RemoveShapeFromTray(shape);
-
-            if (ShapeManager.Instance.ShapesInTray == 0)
+            try
             {
-                ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
+                // 1. Logic Placement
+                GridSystem.Instance.PlaceShape(shape.shapeData, gridX, gridY);
+                
+                // 2. Score for placing
+                ScoreManager.Instance.UpdateScore(10);
+
+                // 3. Audio/Visuals
+                if (JuiceManager.Instance != null) JuiceManager.Instance.ScreenShake(0.1f, 5f);
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFX.PlaceShape);
+
+                // 4. Lotus Protocol
+                LotusManager.Instance.SpreadLotus();
+                LotusManager.Instance.OnTurnPassed(ScoreManager.Instance.CurrentPhase);
+
+                // 5. Line Checking
+                CheckLines();
+
+                // 6. Tray Management
+                ShapeManager.Instance.RemoveShapeFromTray(shape);
+
+                if (ShapeManager.Instance.ShapesInTray == 0)
+                {
+                    ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
+                }
+
+                // 7. Game Over Check
+                if (!ShapeManager.Instance.CheckAnyShapeCanFit())
+                {
+                    GameOver();
+                }
             }
-
-            // 7. Game Over Check
-            if (!ShapeManager.Instance.CheckAnyShapeCanFit())
+            catch (System.Exception e)
             {
-                GameOver();
+                Debug.LogError($"[ZenGridManager] Error during shape placement: {e.Message}\n{e.StackTrace}");
             }
         }
 
@@ -144,14 +155,14 @@ namespace ZenGrid
                     int bonus = emptySpacesCaught * 500;
                     points += bonus;
                     if (bonus > 0 && SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFX.TranquilityBonus);
-                    if (JuiceManager.Instance != null) JuiceManager.Instance.SpawnFloatingText(lastClearPos, "+" + points, new Color(1f, 0.5f, 0.8f));
+                    if (JuiceManager.Instance != null) JuiceManager.Instance.SpawnFloatingText(lastClearPos, "+" + points, new Color(1f, 0.5f, 0.8f), 1.3f);
                 }
                 else
                 {
                     if (JuiceManager.Instance != null)
                     {
                         JuiceManager.Instance.ScreenShake(0.3f, 15f);
-                        JuiceManager.Instance.SpawnFloatingText(lastClearPos, "+" + points, Color.white);
+                        JuiceManager.Instance.SpawnFloatingText(lastClearPos, "+" + points, Color.white, 1.1f);
                     }
                 }
 

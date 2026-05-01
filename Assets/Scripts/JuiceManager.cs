@@ -1,60 +1,60 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+using DG.Tweening;
+using ZenGrid;
 
 public class JuiceManager : MonoBehaviour
 {
     public static JuiceManager Instance;
-    public ParticleSystem petalParticles;
     
+    public Transform canvasTransform;
+    [SerializeField] Camera mainCamera;
+    [SerializeField] ParticleSystem petalParticles; 
+    
+    [SerializeField] AudioSource sfxSource;
+    [SerializeField] GameObject floatingTextPrefab;
+
     private void Awake()
     {
         Instance = this;
     }
-    
-    public AudioSource sfxSource; // Hook up in inspector later
-    public GameObject floatingTextPrefab;
-    public Transform canvasTransform;
+
+    private void OnValidate()
+    {
+        if(!mainCamera)
+            mainCamera = Camera.main;
+    }
 
     public void PlayPetals(Vector3 position, Color color)
     {
         if (petalParticles != null)
         {
-            petalParticles.transform.position = position;
-            var main = petalParticles.main;
-            main.startColor = color;
-            petalParticles.Play();
+            ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams();
+            // Because UIParticle handles the Canvas rendering, we can just pass the UI world position directly!
+            emitParams.position = position; 
+            emitParams.startColor = color;
+            
+            // Emit directly from the standard Particle System
+            petalParticles.Emit(emitParams, 15);
         }
     }
     
     public void PlayExplosion(Vector3 position, Color color)
     {
-        // A much bigger, juicier particle burst for the Lotus explosion
         if (petalParticles != null)
         {
-            petalParticles.transform.position = position;
-            var main = petalParticles.main;
-            main.startColor = color;
-            var emission = petalParticles.emission;
+            ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams();
+            emitParams.position = position;
+            emitParams.startColor = color;
             
-            // Burst many more particles
-            emission.SetBurst(0, new ParticleSystem.Burst(0.0f, 60));
-            petalParticles.Play();
-            
-            // Reset to normal burst later
-            StartCoroutine(ResetBurst(emission));
+            petalParticles.Emit(emitParams, 60);
         }
         
-        ScreenShake(0.6f, 30f); // Massive shake
+        ScreenShake(0.6f, 2f); 
     }
 
-    private IEnumerator ResetBurst(ParticleSystem.EmissionModule emission)
-    {
-        yield return new WaitForSeconds(0.5f);
-        emission.SetBurst(0, new ParticleSystem.Burst(0.0f, 15)); // Default burst count
-    }
+    // --- UI FLOATING TEXT ---
 
-    public void SpawnFloatingText(Vector3 position, string text, Color color)
+    public void SpawnFloatingText(Vector3 position, string text, Color color, float scale = 1f)
     {
         if (floatingTextPrefab == null || canvasTransform == null) return;
 
@@ -62,9 +62,11 @@ public class JuiceManager : MonoBehaviour
         FloatingText ft = textObj.GetComponent<FloatingText>();
         if (ft != null)
         {
-            ft.Setup(text, color, position);
+            ft.Setup(text, color, position, 1.0f, 1.5f, scale);
         }
     }
+
+    // --- AUDIO ---
 
     public void PlaySound(AudioClip clip)
     {
@@ -74,55 +76,21 @@ public class JuiceManager : MonoBehaviour
         }
     }
     
+    // --- JUICE ---
+
     public void ScreenShake(float duration, float magnitude)
     {
-        StartCoroutine(DoShake(duration, magnitude));
-    }
-    
-    private IEnumerator DoShake(float duration, float magnitude)
-    {
-        Vector3 originalPos = Camera.main.transform.localPosition;
-        float elapsed = 0.0f;
-        
-        while (elapsed < duration)
-        {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-            
-            Camera.main.transform.localPosition = new Vector3(x, y, originalPos.z);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        
-        Camera.main.transform.localPosition = originalPos;
+        if (mainCamera == null) return;
+
+        mainCamera.transform.DOComplete();
+        mainCamera.transform.DOShakePosition(duration, magnitude, 10, 90f, false, true);
     }
 
     public void PopBlock(RectTransform blockRect)
     {
-        StartCoroutine(DoPop(blockRect));
-    }
+        if (blockRect == null) return;
 
-    private IEnumerator DoPop(RectTransform rt)
-    {
-        float duration = 0.15f;
-        float elapsed = 0;
-        
-        // Scale up
-        while (elapsed < duration)
-        {
-            rt.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 1.3f, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        
-        elapsed = 0;
-        // Scale down
-        while (elapsed < duration)
-        {
-            rt.localScale = Vector3.Lerp(Vector3.one * 1.3f, Vector3.one, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        rt.localScale = Vector3.one;
+        blockRect.DOKill(true);
+        blockRect.DOPunchScale(Vector3.one * 0.3f, 0.3f, 1, 0.5f);
     }
 }

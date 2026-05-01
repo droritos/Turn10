@@ -43,8 +43,12 @@ namespace ZenGrid
             }
         }
 
+        [ContextMenu("Debug Spawn")]
         public void SpawnTrayShapes(int currentPhase)
         {
+            // Robustness: Re-initialize pool if it's empty (e.g. after domain reload)
+            if (_shapePool.Count == 0) InitializePool();
+
             List<ShapeData> availableShapes = new List<ShapeData>();
             foreach (var shape in _shapeDatabase.shapes)
             {
@@ -52,7 +56,11 @@ namespace ZenGrid
                     availableShapes.Add(shape);
             }
 
-            if (availableShapes.Count == 0) return;
+            if (availableShapes.Count == 0)
+            {
+                Debug.LogWarning("[ShapeManager] No available shapes for phase " + currentPhase);
+                return;
+            }
 
             for (int i = 0; i < _shapePool.Count; i++)
             {
@@ -60,7 +68,6 @@ namespace ZenGrid
                 if (!_shapePool[i].gameObject.activeSelf)
                 {
                     ShapeData randomShape = availableShapes[Random.Range(0, availableShapes.Count)];
-                    _shapePool[i].gameObject.SetActive(true);
                     _shapePool[i].Initialize(randomShape, _trayPositions[i]);
                 }
             }

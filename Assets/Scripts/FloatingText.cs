@@ -2,33 +2,66 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
-public class FloatingText : MonoBehaviour
+namespace ZenGrid
 {
-    public TextMeshProUGUI textMesh;
-
-    public void Setup(string text, Color color, Vector3 startPos, float floatDistance = 150f, float duration = 1.5f)
+    public class FloatingText : MonoBehaviour
     {
-        transform.position = startPos;
-        textMesh.text = text;
-        textMesh.color = color;
-        
-        // Ensure scale is normal
-        transform.localScale = Vector3.zero;
+        [SerializeField] private TextMeshProUGUI _textMesh;
+        private RectTransform _rectTransform;
 
-        // Sequence for popping in, floating up, and fading out
-        Sequence seq = DOTween.Sequence();
-        
-        // Pop in
-        seq.Append(transform.DOScale(Vector3.one * 1.5f, 0.2f).SetEase(Ease.OutBack));
-        seq.Append(transform.DOScale(Vector3.one, 0.1f));
-        
-        // Float up and fade
-        seq.Join(transform.DOMoveY(startPos.y + floatDistance, duration).SetEase(Ease.OutCubic));
-        seq.Join(textMesh.DOFade(0, duration).SetEase(Ease.InExpo));
-        
-        // Destroy when done
-        seq.OnComplete(() => {
-            Destroy(gameObject);
-        });
+        private void Awake()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+        }
+
+        public void Setup(string text, Color color, Vector3 worldStartPos, float floatDistance = 1.0f, float duration = 1.5f, float scaleMultiplier = 1f)
+        {
+            if (_textMesh == null) _textMesh = GetComponentInChildren<TextMeshProUGUI>();
+            if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>();
+
+            if (_textMesh == null)
+            {
+                Debug.LogWarning("[FloatingText] TextMesh reference missing!");
+                return;
+            }
+
+            _textMesh.text = text;
+            _textMesh.color = color;
+            
+            // Convert world position to local position within the canvas
+            if (transform.parent == null) return;
+            RectTransform canvasRect = transform.parent.GetComponent<RectTransform>();
+            if (canvasRect == null) return;
+
+            Vector2 localPoint;
+            Camera cam = Camera.main;
+            if (cam == null) cam = GetComponentInParent<Canvas>().worldCamera;
+            
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, 
+                cam != null ? cam.WorldToScreenPoint(worldStartPos) : (Vector2)worldStartPos, 
+                null, 
+                out localPoint);
+            
+            _rectTransform.anchoredPosition = localPoint;
+            
+            // Reset state
+            transform.localScale = Vector3.zero;
+
+            Sequence seq = DOTween.Sequence();
+            
+            // Pop in (scaled by the multiplier for big/small messages)
+            seq.Append(transform.DOScale(Vector3.one * (1.2f * scaleMultiplier), 0.2f).SetEase(Ease.OutQuad));
+            seq.Append(transform.DOScale(Vector3.one * scaleMultiplier, 0.1f));
+            
+            // Smooth float up and fade
+            // Note: floatDistance is now in UI units since we are using anchoredPosition
+            float uiFloatDistance = floatDistance * 100f; 
+            seq.Join(_rectTransform.DOAnchorPosY(localPoint.y + uiFloatDistance, duration).SetEase(Ease.OutSine));
+            seq.Join(_textMesh.DOFade(0, duration).SetEase(Ease.InCubic));
+            
+            seq.OnComplete(() => {
+                Destroy(gameObject);
+            });
+        }
     }
 }

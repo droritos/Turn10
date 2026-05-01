@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace ZenGrid
 {
@@ -10,7 +11,7 @@ namespace ZenGrid
         [Header("Grid Settings")]
         [SerializeField] private int _columns = 10;
         [SerializeField] private int _rows = 10;
-        [SerializeField] private GameObject _cellPrefab;
+        [SerializeField] private GridCell _cellPrefab;
         [SerializeField] private Transform _gridContainer;
 
         private GridCell[,] _gridCells;
@@ -23,26 +24,33 @@ namespace ZenGrid
             Instance = this;
         }
 
+        [ContextMenu("Force Refresh Grid Visuals")]
         public void InitializeGrid()
         {
+            // Make the container itself transparent so the gaps show the clean background
+            Image containerImg = _gridContainer.GetComponent<Image>();
+            if (containerImg != null) containerImg.color = new Color(1, 1, 1, 0);
+
+            // Clear existing
+            // Clear old grid if any (use DestroyImmediate to ensure they are gone before we create new ones)
+            List<GameObject> children = new List<GameObject>();
+            foreach (Transform child in _gridContainer) children.Add(child.gameObject);
+            foreach (GameObject child in children) DestroyImmediate(child);
+            
             _gridCells = new GridCell[_columns, _rows];
 
             for (int r = 0; r < _rows; r++)
             {
                 for (int c = 0; c < _columns; c++)
                 {
-                    GameObject cellObj = Instantiate(_cellPrefab, _gridContainer);
-                    GridCell cell = cellObj.GetComponent<GridCell>();
+                    GridCell cellObj = Instantiate(_cellPrefab, _gridContainer);
                     
-                    if (cell == null)
-                    {
-                        cell = cellObj.AddComponent<GridCell>();
-                    }
-
-                    cell.SetBackground(new Color(0.9f, 0.9f, 0.9f, 0.8f));
-                    _gridCells[c, r] = cell;
+                    // Zen Visuals: Make cells very subtle to let the shape colors pop
+                    cellObj.SetBackground(new Color(1, 1, 1, 0.15f));
+                    _gridCells[c, r] = cellObj;
                 }
             }
+            Debug.Log("Grid Initialized");
         }
 
         public GridCell GetCell(int x, int y)

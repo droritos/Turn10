@@ -61,9 +61,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c978698425be46744803f96b41ae2641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableShape
-  shapeData:
-    name: 
-    color: {r: 0, g: 0, b: 0, a: 0}
-    matrix: 
-    width: 0
-    height: 0
+  _cellPrefab: {fileID: 2274822419337196715, guid: 71bf5f005d8f82d47a6aef98d0bcc6cb, type: 3}

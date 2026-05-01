@@ -117,8 +117,8 @@ namespace ZenGrid
                             emptySpacesCaught++;
                             if (JuiceManager.Instance != null)
                             {
-                                JuiceManager.Instance.SpawnFloatingText(cell.transform.position, "TRANQUIL!", new Color(0.4f, 1f, 0.8f));
-                                cell.FlashBackground(Color.white, new Color(0.9f, 0.9f, 0.9f, 0.8f));
+                                JuiceManager.Instance.SpawnFloatingText(cell.transform.position, "TRANQUIL!", new Color(0.4f, 1f, 0.8f), 0.6f);
+                                cell.FlashBackground(Color.white);
                             }
                         }
                     }

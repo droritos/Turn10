@@ -16,6 +16,12 @@ public class JuiceManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        if (petalParticles != null)
+        {
+            var main = petalParticles.main;
+            main.simulationSpace = ParticleSystemSimulationSpace.World;
+            main.scalingMode = ParticleSystemScalingMode.Hierarchy;
+        }
     }
 
     private void OnValidate()
@@ -28,13 +34,16 @@ public class JuiceManager : MonoBehaviour
     {
         if (petalParticles != null)
         {
-            ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams();
-            // Because UIParticle handles the Canvas rendering, we can just pass the UI world position directly!
-            emitParams.position = position; 
-            emitParams.startColor = color;
+            if (canvasTransform != null) petalParticles.transform.SetParent(canvasTransform);
+            petalParticles.transform.position = position;
             
-            // Emit directly from the standard Particle System
-            petalParticles.Emit(emitParams, 15);
+            // Force local Z to 0 so it's not buried behind the canvas
+            var lp = petalParticles.transform.localPosition;
+            petalParticles.transform.localPosition = new Vector3(lp.x, lp.y, 0);
+
+            var main = petalParticles.main;
+            main.startColor = color;
+            petalParticles.Emit(15);
         }
     }
     
@@ -42,11 +51,15 @@ public class JuiceManager : MonoBehaviour
     {
         if (petalParticles != null)
         {
-            ParticleSystem.EmitParams emitParams = new ParticleSystem.EmitParams();
-            emitParams.position = position;
-            emitParams.startColor = color;
+            if (canvasTransform != null) petalParticles.transform.SetParent(canvasTransform);
+            petalParticles.transform.position = position;
             
-            petalParticles.Emit(emitParams, 60);
+            var lp = petalParticles.transform.localPosition;
+            petalParticles.transform.localPosition = new Vector3(lp.x, lp.y, 0);
+
+            var main = petalParticles.main;
+            main.startColor = color;
+            petalParticles.Emit(60);
         }
         
         ScreenShake(0.6f, 2f); 
@@ -80,10 +93,12 @@ public class JuiceManager : MonoBehaviour
 
     public void ScreenShake(float duration, float magnitude)
     {
-        if (mainCamera == null) return;
-
-        mainCamera.transform.DOComplete();
-        mainCamera.transform.DOShakePosition(duration, magnitude, 10, 90f, false, true);
+        // Cancel camera shake as requested, only shake the UI
+        if (canvasTransform != null)
+        {
+            canvasTransform.DOComplete();
+            canvasTransform.DOShakePosition(duration, magnitude * 8f, 12, 90f, false, true);
+        }
     }
 
     public void PopBlock(RectTransform blockRect)

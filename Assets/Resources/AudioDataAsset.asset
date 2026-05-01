@@ -33,6 +33,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 986c0e4f98c089843896f730d9161bb1, type: 3}
     volume: 1
     pitch: 1
+  - key: 4
+    clip: {fileID: 8300000, guid: 2c5a32ddcd1cd644ebf392eecf9d7d6f, type: 3}
+    volume: 1
+    pitch: 1
+  - key: 5
+    clip: {fileID: 8300000, guid: f33f63421e8776f49a34a76fbdd98313, type: 3}
+    volume: 1
+    pitch: 1
   musicPlaylist:
   - {fileID: 8300000, guid: 099797e46a0d37c4a8a3cefadf1e3f1d, type: 3}
   - {fileID: 8300000, guid: 535a62d47d7be5f49864795c498f7f7b, type: 3}

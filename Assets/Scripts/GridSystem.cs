@@ -13,6 +13,7 @@ namespace ZenGrid
         [SerializeField] private int _rows = 10;
         [SerializeField] private GridCell _cellPrefab;
         [SerializeField] private Transform _gridContainer;
+        [SerializeField] Color backgroundColor = Color.white;
 
         private GridCell[,] _gridCells;
 
@@ -46,7 +47,7 @@ namespace ZenGrid
                     GridCell cellObj = Instantiate(_cellPrefab, _gridContainer);
                     
                     // Zen Visuals: Make cells very subtle to let the shape colors pop
-                    cellObj.SetBackground(new Color(1, 1, 1, 0.15f));
+                    cellObj.SetBackground(backgroundColor);
                     _gridCells[c, r] = cellObj;
                 }
             }

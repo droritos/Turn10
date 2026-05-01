@@ -5,6 +5,7 @@ namespace ZenGrid.UI
         None,
         MainMenu,
         Gameplay,
+        GameOver,
         Settings,
         PauseMenu
     }

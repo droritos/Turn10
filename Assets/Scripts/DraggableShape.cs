@@ -2,78 +2,84 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
+using ZenGrid;
 
 public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    public ShapeData shapeData;
-    private Transform startParent;
-    private Vector3 startPosition;
-    private CanvasGroup canvasGroup;
-    private RectTransform rectTransform;
+    [Header("References")]
+    [SerializeField] private GameObject _cellPrefab; // Use the same GridCell prefab
     
-    private float timeDown;
-    private float blockSize = 96f; // Matched to grid cell size in Canvas
+    private ShapeData _shapeData;
+    private Transform _startParent;
+    private Vector3 _startPosition;
+    private CanvasGroup _canvasGroup;
+    private RectTransform _rectTransform;
+    private Transform _dragContainer;
 
-    private Vector3 dragOffset;
-    private float trayScale;
+    private float _timeDown;
+    private float _blockSize = 96f; 
+    private Vector3 _dragOffset;
+    private float _trayScale;
+
+    public ShapeData shapeData => _shapeData;
+
+    private void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        if (_canvasGroup == null) _canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        
+        _rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        
+        // Find a suitable drag container (JuiceManager usually has the main canvas ref)
+        if (JuiceManager.Instance != null)
+            _dragContainer = JuiceManager.Instance.canvasTransform;
+    }
 
     public void Initialize(ShapeData data, Transform parent)
     {
-        shapeData = data.Clone();
-        startParent = parent;
-        rectTransform = GetComponent<RectTransform>();
-        
-        rectTransform.pivot = new Vector2(0.5f, 0.5f);
-        
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        _shapeData = data.Clone();
+        _startParent = parent;
+        transform.SetParent(parent, false);
+        transform.localPosition = Vector3.zero;
         
         BuildVisuals();
         
-        // Dynamically scale shapes so wide/tall shapes don't clip out of the tray container
-        float maxDim = Mathf.Max(shapeData.width, shapeData.height);
-        trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f); 
-        transform.localScale = Vector3.one * trayScale;
+        float maxDim = Mathf.Max(_shapeData.width, _shapeData.height);
+        _trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f); 
+        transform.localScale = Vector3.one * _trayScale;
     }
 
     private void BuildVisuals()
     {
+        // Clear old blocks
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
 
-        rectTransform.sizeDelta = new Vector2(shapeData.width * blockSize, shapeData.height * blockSize);
+        _rectTransform.sizeDelta = new Vector2(_shapeData.width * _blockSize, _shapeData.height * _blockSize);
         
-        for (int y = 0; y < shapeData.height; y++)
+        for (int y = 0; y < _shapeData.height; y++)
         {
-            for (int x = 0; x < shapeData.width; x++)
+            for (int x = 0; x < _shapeData.width; x++)
             {
-                if (shapeData.GetCell(x, y) == 1)
+                if (_shapeData.GetCell(x, y) == 1)
                 {
-                    GameObject blockObj = new GameObject("Block");
-                    blockObj.transform.SetParent(transform, false);
-                    Image img = blockObj.AddComponent<Image>();
-                    img.color = shapeData.color;
+                    GameObject cellObj = Instantiate(_cellPrefab, transform);
+                    GridCell cell = cellObj.GetComponent<GridCell>();
                     
-                    RectTransform rt = img.rectTransform;
-                    rt.sizeDelta = new Vector2(blockSize, blockSize);
+                    RectTransform rt = cellObj.GetComponent<RectTransform>();
+                    rt.sizeDelta = new Vector2(_blockSize, _blockSize);
                     rt.pivot = new Vector2(0.5f, 0.5f);
                     
-                    float posX = (x - shapeData.width / 2f + 0.5f) * blockSize;
-                    float posY = -(y - shapeData.height / 2f + 0.5f) * blockSize;
+                    float posX = (x - _shapeData.width / 2f + 0.5f) * _blockSize;
+                    float posY = -(y - _shapeData.height / 2f + 0.5f) * _blockSize;
                     rt.anchoredPosition = new Vector2(posX, posY);
-                    
-                    GameObject fillObj = new GameObject("Fill");
-                    fillObj.transform.SetParent(rt, false);
-                    Image fillImg = fillObj.AddComponent<Image>();
-                    fillImg.color = new Color(1, 1, 1, 0.15f); // Subtler highlight so color pops!
-                    RectTransform fillRt = fillImg.rectTransform;
-                    fillRt.anchorMin = Vector2.zero; fillRt.anchorMax = Vector2.one;
-                    fillRt.offsetMin = new Vector2(4, 4); fillRt.offsetMax = new Vector2(-4, -4);
+
+                    // Set visual state using the consolidated script
+                    cell.SetState(_shapeData.color, false, false);
+                    cell.SetBackground(new Color(1, 1, 1, 0)); // Transparent bg for tray shapes
                 }
             }
         }
@@ -81,63 +87,58 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Kill existing tweens to prevent snapping back while grabbing
+        if (!ZenGridManager.Instance.isGameActive) return;
+
         transform.DOKill();
         
-        startPosition = rectTransform.position;
-        timeDown = Time.time;
+        _startPosition = _rectTransform.position;
+        _timeDown = Time.time;
         
-        canvasGroup.alpha = 0.8f;
-        canvasGroup.blocksRaycasts = false;
-        transform.SetParent(transform.root);
+        _canvasGroup.alpha = 0.8f;
+        _canvasGroup.blocksRaycasts = false;
+        
+        // Use the drag container to ensure it stays visible and on top of everything
+        if (_dragContainer != null) transform.SetParent(_dragContainer);
         transform.SetAsLastSibling();
         
-        // Tween scale up!
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySFX(SoundManager.SFX.SelectShape);
+        
         transform.DOScale(Vector3.one * 1.0f, 0.2f).SetEase(Ease.OutBack);
         
-        dragOffset = new Vector3(0, 150f, 0); 
-        rectTransform.position = new Vector3(eventData.position.x, eventData.position.y, 0) + dragOffset;
+        _dragOffset = new Vector3(0, 150f, 0); 
+        _rectTransform.position = new Vector3(eventData.position.x, eventData.position.y, 0) + _dragOffset;
         
         UpdateGhostHint();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.position = new Vector3(eventData.position.x, eventData.position.y, 0) + dragOffset;
+        if (!ZenGridManager.Instance.isGameActive) return;
+        _rectTransform.position = new Vector3(eventData.position.x, eventData.position.y, 0) + _dragOffset;
         UpdateGhostHint();
     }
 
     private void UpdateGhostHint()
     {
-        if (ZenGridManager.Instance == null) return;
+        if (GridSystem.Instance == null) return;
         
-        RectTransform gridRectTransform = ZenGridManager.Instance.gridContainer.GetComponent<RectTransform>();
-        Vector3 localPos = gridRectTransform.InverseTransformPoint(transform.position);
-        Rect gridRect = gridRectTransform.rect;
-        
-        float shapeTopLeftX = localPos.x - (shapeData.width / 2f * blockSize);
-        float shapeTopLeftY = localPos.y + (shapeData.height / 2f * blockSize);
-
-        float gridRelativeX = shapeTopLeftX - gridRect.xMin;
-        float gridRelativeY = gridRect.yMax - shapeTopLeftY;
-        
-        int gridX = Mathf.RoundToInt(gridRelativeX / blockSize);
-        int gridY = Mathf.RoundToInt(gridRelativeY / blockSize);
-
-        ZenGridManager.Instance.ShowGhost(shapeData, gridX, gridY);
+        Vector2Int gridPos = GetGridPosition();
+        GridSystem.Instance.ClearAllGhosts();
+        GridSystem.Instance.ShowGhost(_shapeData, gridPos.x, gridPos.y);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        canvasGroup.alpha = 1.0f;
-        canvasGroup.blocksRaycasts = true;
+        _canvasGroup.alpha = 1.0f;
+        _canvasGroup.blocksRaycasts = true;
 
-        if (ZenGridManager.Instance != null)
+        if (GridSystem.Instance != null)
         {
-            ZenGridManager.Instance.ClearGhost();
+            GridSystem.Instance.ClearAllGhosts();
         }
 
-        float timeDelta = Time.time - timeDown;
+        float timeDelta = Time.time - _timeDown;
         if (timeDelta < 0.25f)
         {
             Rotate();
@@ -145,11 +146,11 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             return;
         }
 
-        if (TryPlaceOnGrid())
+        Vector2Int gridPos = GetGridPosition();
+        if (GridSystem.Instance.CanPlaceShape(_shapeData, gridPos.x, gridPos.y))
         {
-            // DoTween scale out
             transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
-                ZenGridManager.Instance.OnShapePlaced(this);
+                ZenGridManager.Instance.OnShapePlaced(this, gridPos.x, gridPos.y);
             });
         }
         else
@@ -158,52 +159,28 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         }
     }
     
+    private Vector2Int GetGridPosition()
+    {
+        return GridSystem.Instance.WorldToGrid(transform.position, _blockSize, _shapeData.width, _shapeData.height);
+    }
+
     private void SnapBack()
     {
-        transform.SetParent(startParent);
-        // DoTween smooth snap back!
-        rectTransform.DOMove(startPosition, 0.3f).SetEase(Ease.OutBack);
-        transform.DOScale(Vector3.one * trayScale, 0.3f).SetEase(Ease.OutBack);
+        transform.SetParent(_startParent);
+        _rectTransform.DOMove(_startPosition, 0.3f).SetEase(Ease.OutBack);
+        transform.DOScale(Vector3.one * _trayScale, 0.3f).SetEase(Ease.OutBack);
     }
 
     private void Rotate()
     {
-        shapeData.RotateClockwise();
+        _shapeData.RotateClockwise();
         BuildVisuals();
         
-        // Re-evaluate scale in case width/height swapped and it's a long shape
-        float maxDim = Mathf.Max(shapeData.width, shapeData.height);
-        trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f); 
+        float maxDim = Mathf.Max(_shapeData.width, _shapeData.height);
+        _trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f); 
         
-        // Pop effect on rotate
         transform.DOKill();
-        transform.localScale = Vector3.one * (trayScale + 0.15f);
-        transform.DOScale(Vector3.one * trayScale, 0.2f).SetEase(Ease.OutBounce);
-    }
-
-    private bool TryPlaceOnGrid()
-    {
-        if (ZenGridManager.Instance == null) return false;
-        
-        RectTransform gridRectTransform = ZenGridManager.Instance.gridContainer.GetComponent<RectTransform>();
-        Vector3 localPos = gridRectTransform.InverseTransformPoint(transform.position);
-        Rect gridRect = gridRectTransform.rect;
-        
-        float shapeTopLeftX = localPos.x - (shapeData.width / 2f * blockSize);
-        float shapeTopLeftY = localPos.y + (shapeData.height / 2f * blockSize);
-
-        float gridRelativeX = shapeTopLeftX - gridRect.xMin;
-        float gridRelativeY = gridRect.yMax - shapeTopLeftY;
-        
-        int gridX = Mathf.RoundToInt(gridRelativeX / blockSize);
-        int gridY = Mathf.RoundToInt(gridRelativeY / blockSize);
-
-        if (ZenGridManager.Instance.CanPlaceShape(shapeData, gridX, gridY))
-        {
-            ZenGridManager.Instance.PlaceShape(shapeData, gridX, gridY);
-            return true;
-        }
-
-        return false;
+        transform.localScale = Vector3.one * (_trayScale + 0.15f);
+        transform.DOScale(Vector3.one * _trayScale, 0.2f).SetEase(Ease.OutBounce);
     }
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using ZenGrid;
 
 public class SetupJuiceEditor : EditorWindow
 {
@@ -47,7 +48,6 @@ public class SetupJuiceEditor : EditorWindow
         psr.material = new Material(Shader.Find("Sprites/Default"));
 
         jm.petalParticles = ps;
-        manager.petalParticles = ps;
 
         Debug.Log("Juice Setup Complete");
     }

@@ -10,17 +10,17 @@ namespace ZenGrid.UI
         [SerializeField] private Button _playButton;
         [SerializeField] private Button _quitButton;
 
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
             if (_playButton != null)
-            {
                 _playButton.onClick.AddListener(OnPlayClicked);
-            }
+            else
+                Debug.LogError("[MainMenuUI] Play Button is NOT assigned in the Inspector!", this);
+
             if (_quitButton != null)
-            {
                 _quitButton.onClick.AddListener(OnQuitClicked);
-            }
+            else
+                Debug.LogWarning("[MainMenuUI] Quit Button is NOT assigned in the Inspector.", this);
         }
 
         private void OnDestroy()
@@ -33,17 +33,22 @@ namespace ZenGrid.UI
 
         private void OnPlayClicked()
         {
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+
             MenuManager.Instance.OpenMenu(MenuType.Gameplay);
 
-            // Start the gameplay
             if (ZenGridManager.Instance != null)
-            {
                 ZenGridManager.Instance.StartGame();
-            }
+            else
+                Debug.LogError("[MainMenuUI] ZenGridManager.Instance is null! Cannot start game.");
         }
 
         private void OnQuitClicked()
         {
+            if (SoundManager.Instance != null)
+                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else

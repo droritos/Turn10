@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
-using DG.Tweening;
 using ZenGrid.UI;
 
 namespace ZenGrid
@@ -17,7 +15,7 @@ namespace ZenGrid
             Instance = this;
             
             // Mobile Optimizations
-            Application.targetFrameRate = -1;
+            Application.targetFrameRate = 120;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
 

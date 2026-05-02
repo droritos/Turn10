@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2172530580985016695}
   - component: {fileID: 602787546522142728}
   - component: {fileID: 6663182454271762578}
+  - component: {fileID: 7725041074522429912}
+  - component: {fileID: 2564558730839689177}
   m_Layer: 0
   m_Name: DraggableShape
   m_TagString: Untagged
@@ -62,3 +64,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableShape
   cellPrefab: {fileID: 447975286920642198, guid: 71bf5f005d8f82d47a6aef98d0bcc6cb, type: 3}
+  _touchAreaSize: 450
+  _canvasGroup: {fileID: 602787546522142728}
+  _rectTransform: {fileID: 2172530580985016695}
+  _hitboxImage: {fileID: 2564558730839689177}
+--- !u!222 &7725041074522429912
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450706829260609161}
+  m_CullTransparentMesh: 1
+--- !u!114 &2564558730839689177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450706829260609161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

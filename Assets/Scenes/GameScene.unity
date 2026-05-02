@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 4032923}
   _backgroundImage: {fileID: 4032925}
   _fillImage: {fileID: 142245782}
   _lotusVisual: {fileID: 1747995839}
@@ -489,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 13214754}
   _backgroundImage: {fileID: 13214756}
   _fillImage: {fileID: 148783423}
   _lotusVisual: {fileID: 1730594883}
@@ -582,6 +584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 22062937}
   _backgroundImage: {fileID: 22062939}
   _fillImage: {fileID: 325057631}
   _lotusVisual: {fileID: 1820037696}
@@ -750,6 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 32703753}
   _backgroundImage: {fileID: 32703755}
   _fillImage: {fileID: 841334577}
   _lotusVisual: {fileID: 1556056403}
@@ -918,6 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 47903082}
   _backgroundImage: {fileID: 47903084}
   _fillImage: {fileID: 2142181141}
   _lotusVisual: {fileID: 1641327692}
@@ -1011,6 +1016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 56295166}
   _backgroundImage: {fileID: 56295168}
   _fillImage: {fileID: 1649550093}
   _lotusVisual: {fileID: 1277983231}
@@ -1179,6 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 79184647}
   _backgroundImage: {fileID: 79184649}
   _fillImage: {fileID: 849721319}
   _lotusVisual: {fileID: 233411328}
@@ -1347,6 +1354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 89733086}
   _backgroundImage: {fileID: 89733088}
   _fillImage: {fileID: 1491854654}
   _lotusVisual: {fileID: 121949946}
@@ -1665,6 +1673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 99169182}
   _backgroundImage: {fileID: 99169184}
   _fillImage: {fileID: 139451703}
   _lotusVisual: {fileID: 92328470}
@@ -1792,6 +1801,7 @@ GameObject:
   - component: {fileID: 116576643}
   - component: {fileID: 116576645}
   - component: {fileID: 116576644}
+  - component: {fileID: 116576646}
   m_Layer: 0
   m_Name: GameplayUI
   m_TagString: Untagged
@@ -1835,8 +1845,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.UI.GameplayUI
   CanvasGroup: {fileID: 116576645}
-  _scoreText: {fileID: 1380378047}
-  _bestScoreText: {fileID: 1787511436}
+  _scoreText: {fileID: 1787511436}
+  _bestScoreText: {fileID: 1380378047}
   _pauseButton: {fileID: 334091086}
 --- !u!225 &116576645
 CanvasGroup:
@@ -1846,10 +1856,36 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116576642}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &116576646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116576642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 300
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 15
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &121949946
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,7 +2201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2560,6 +2596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 162535918}
   _backgroundImage: {fileID: 162535920}
   _fillImage: {fileID: 1886211232}
   _lotusVisual: {fileID: 1257311791}
@@ -2653,6 +2690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 169200377}
   _backgroundImage: {fileID: 169200379}
   _fillImage: {fileID: 148815632}
   _lotusVisual: {fileID: 570695246}
@@ -2769,73 +2807,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 205556716}
   m_CullTransparentMesh: 1
---- !u!1001 &206069876
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 908112061}
-    m_Modifications:
-    - target: {fileID: 37956996953451346, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_Name
-      value: Patels
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
---- !u!4 &206069877 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-  m_PrefabInstance: {fileID: 206069876}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &206069878 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2978581116708411901, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
-  m_PrefabInstance: {fileID: 206069876}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &215071959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2888,6 +2859,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 215071960}
   _backgroundImage: {fileID: 215071962}
   _fillImage: {fileID: 1343656024}
   _lotusVisual: {fileID: 788808478}
@@ -3356,6 +3328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 240699186}
   _backgroundImage: {fileID: 240699188}
   _fillImage: {fileID: 596522569}
   _lotusVisual: {fileID: 1406509346}
@@ -3449,6 +3422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 311285901}
   _backgroundImage: {fileID: 311285903}
   _fillImage: {fileID: 1653289097}
   _lotusVisual: {fileID: 1831414562}
@@ -3542,6 +3516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 315276360}
   _backgroundImage: {fileID: 315276362}
   _fillImage: {fileID: 1194165975}
   _lotusVisual: {fileID: 1595283201}
@@ -3635,6 +3610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 319285928}
   _backgroundImage: {fileID: 319285930}
   _fillImage: {fileID: 1210340900}
   _lotusVisual: {fileID: 1532982573}
@@ -3728,6 +3704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 324818442}
   _backgroundImage: {fileID: 324818444}
   _fillImage: {fileID: 1831180780}
   _lotusVisual: {fileID: 1745906942}
@@ -3896,6 +3873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 328422615}
   _backgroundImage: {fileID: 328422617}
   _fillImage: {fileID: 391638502}
   _lotusVisual: {fileID: 225030621}
@@ -3945,6 +3923,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 700802772}
     m_Modifications:
+    - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_text
       value: 'Pause
@@ -3957,7 +3939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_Pivot.y
@@ -3965,7 +3947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3973,7 +3955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_AnchorMin.y
@@ -3981,11 +3963,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 150
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4017,7 +3999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 34.999996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3108901553660806902, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4036,6 +4018,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3578612550883803794, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4a0ace3cccebf934baed1d27202d62a0, type: 3}
+    - target: {fileID: 3578612550883803794, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_Color.b
       value: 0.28930807
       objectReference: {fileID: 0}
@@ -4052,7 +4038,8 @@ PrefabInstance:
       value: PauseButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6967274056197279681, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
@@ -4124,6 +4111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 334933270}
   _backgroundImage: {fileID: 334933272}
   _fillImage: {fileID: 1085568146}
   _lotusVisual: {fileID: 2003402071}
@@ -4217,6 +4205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 344380504}
   _backgroundImage: {fileID: 344380506}
   _fillImage: {fileID: 1945811473}
   _lotusVisual: {fileID: 847001028}
@@ -4310,6 +4299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 347090083}
   _backgroundImage: {fileID: 347090085}
   _fillImage: {fileID: 1748460190}
   _lotusVisual: {fileID: 1054011818}
@@ -4403,6 +4393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 354445617}
   _backgroundImage: {fileID: 354445619}
   _fillImage: {fileID: 1667308883}
   _lotusVisual: {fileID: 1260946549}
@@ -4496,6 +4487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 354454848}
   _backgroundImage: {fileID: 354454850}
   _fillImage: {fileID: 1729085429}
   _lotusVisual: {fileID: 1569397174}
@@ -4964,6 +4956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 379224038}
   _backgroundImage: {fileID: 379224040}
   _fillImage: {fileID: 1807850334}
   _lotusVisual: {fileID: 1765084762}
@@ -5057,6 +5050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 384744572}
   _backgroundImage: {fileID: 384744574}
   _fillImage: {fileID: 1787119194}
   _lotusVisual: {fileID: 1281512181}
@@ -5150,6 +5144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 386202921}
   _backgroundImage: {fileID: 386202923}
   _fillImage: {fileID: 1021914158}
   _lotusVisual: {fileID: 1977205847}
@@ -5266,6 +5261,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391638500}
   m_CullTransparentMesh: 1
+--- !u!1 &398926278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 398926279}
+  m_Layer: 0
+  m_Name: UIContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &398926279
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398926278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 519299141}
+  m_Father: {fileID: 1541214801}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &404313661
 GameObject:
   m_ObjectHideFlags: 0
@@ -5468,6 +5499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 413748055}
   _backgroundImage: {fileID: 413748057}
   _fillImage: {fileID: 1264182053}
   _lotusVisual: {fileID: 1655636349}
@@ -5636,6 +5668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 423065274}
   _backgroundImage: {fileID: 423065276}
   _fillImage: {fileID: 861972848}
   _lotusVisual: {fileID: 641934862}
@@ -6029,6 +6062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 468369020}
   _backgroundImage: {fileID: 468369022}
   _fillImage: {fileID: 1506633347}
   _lotusVisual: {fileID: 377218232}
@@ -6272,6 +6306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 493928135}
   _backgroundImage: {fileID: 493928137}
   _fillImage: {fileID: 1956310367}
   _lotusVisual: {fileID: 364737135}
@@ -6422,7 +6457,7 @@ RectTransform:
   - {fileID: 116576643}
   - {fileID: 1145895373}
   - {fileID: 1336176828}
-  m_Father: {fileID: 2101365593}
+  m_Father: {fileID: 398926279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6714,6 +6749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 543004283}
   _backgroundImage: {fileID: 543004285}
   _fillImage: {fileID: 1129838613}
   _lotusVisual: {fileID: 929178733}
@@ -6844,6 +6880,7 @@ GameObject:
   - component: {fileID: 555779418}
   - component: {fileID: 555779419}
   - component: {fileID: 555779420}
+  - component: {fileID: 555779421}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6939,6 +6976,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.LotusManager
   _turnsBetweenLotus: 5
+--- !u!114 &555779421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555779414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505b195d6e15212408032b74eb5ab6da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.DebugHUD
+  _showOnStart: 0
+  _displayRoot: {fileID: 846145257}
+  _fpsText: {fileID: 665213307}
+  _infoText: {fileID: 1416941012}
 --- !u!1 &558345096
 GameObject:
   m_ObjectHideFlags: 0
@@ -7066,6 +7119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 561117242}
   _backgroundImage: {fileID: 561117244}
   _fillImage: {fileID: 498923682}
   _lotusVisual: {fileID: 662585859}
@@ -7234,6 +7288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 595197402}
   _backgroundImage: {fileID: 595197404}
   _fillImage: {fileID: 607923817}
   _lotusVisual: {fileID: 95290166}
@@ -7477,6 +7532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 606847258}
   _backgroundImage: {fileID: 606847260}
   _fillImage: {fileID: 44513666}
   _lotusVisual: {fileID: 1361503349}
@@ -7645,6 +7701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 609396917}
   _backgroundImage: {fileID: 609396919}
   _fillImage: {fileID: 1983677500}
   _lotusVisual: {fileID: 144636090}
@@ -7972,6 +8029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 636733307}
   _backgroundImage: {fileID: 636733309}
   _fillImage: {fileID: 1394806368}
   _lotusVisual: {fileID: 1345349164}
@@ -8140,6 +8198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 640158632}
   _backgroundImage: {fileID: 640158634}
   _fillImage: {fileID: 1912496200}
   _lotusVisual: {fileID: 1933106497}
@@ -8383,6 +8442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 652738819}
   _backgroundImage: {fileID: 652738821}
   _fillImage: {fileID: 1740844763}
   _lotusVisual: {fileID: 215991328}
@@ -8551,6 +8611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 658852823}
   _backgroundImage: {fileID: 658852825}
   _fillImage: {fileID: 781783543}
   _lotusVisual: {fileID: 1821782413}
@@ -8667,6 +8728,143 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 662585859}
   m_CullTransparentMesh: 1
+--- !u!1 &665213305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665213306}
+  - component: {fileID: 665213308}
+  - component: {fileID: 665213307}
+  m_Layer: 0
+  m_Name: FPS_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &665213306
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665213305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846145258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 10, y: -10}
+  m_SizeDelta: {x: -20, y: 30}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &665213307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665213305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 18
+  m_fontSizeBase: 18
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &665213308
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665213305}
+  m_CullTransparentMesh: 1
 --- !u!1 &666412197
 GameObject:
   m_ObjectHideFlags: 0
@@ -8719,6 +8917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 666412198}
   _backgroundImage: {fileID: 666412200}
   _fillImage: {fileID: 865561098}
   _lotusVisual: {fileID: 1642946742}
@@ -8962,6 +9161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 688201121}
   _backgroundImage: {fileID: 688201123}
   _fillImage: {fileID: 26605757}
   _lotusVisual: {fileID: 1102204425}
@@ -9182,14 +9382,14 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1787511434}
-  - {fileID: 1380378046}
   - {fileID: 334091085}
+  - {fileID: 1968884628}
   m_Father: {fileID: 116576643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
-  m_SizeDelta: {x: 1000, y: 390}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 872, y: 350}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &704069746
 GameObject:
@@ -9318,6 +9518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 708157103}
   _backgroundImage: {fileID: 708157105}
   _fillImage: {fileID: 1397737099}
   _lotusVisual: {fileID: 668659257}
@@ -9802,6 +10003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 774572508}
   _backgroundImage: {fileID: 774572510}
   _fillImage: {fileID: 1158091248}
   _lotusVisual: {fileID: 1026849319}
@@ -10544,6 +10746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 831240968}
   _backgroundImage: {fileID: 831240970}
   _fillImage: {fileID: 1284894606}
   _lotusVisual: {fileID: 450741145}
@@ -10862,6 +11065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 843738700}
   _backgroundImage: {fileID: 843738702}
   _fillImage: {fileID: 1923396796}
   _lotusVisual: {fileID: 1690095383}
@@ -10902,6 +11106,83 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843738699}
+  m_CullTransparentMesh: 1
+--- !u!1 &846145257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846145258}
+  - component: {fileID: 846145260}
+  - component: {fileID: 846145259}
+  m_Layer: 0
+  m_Name: HUD_Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &846145258
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846145257}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 665213306}
+  - {fileID: 1416941011}
+  m_Father: {fileID: 2113865137}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 20, y: -20}
+  m_SizeDelta: {x: 250, y: 150}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &846145259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846145257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &846145260
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846145257}
   m_CullTransparentMesh: 1
 --- !u!1 &847001028
 GameObject:
@@ -11105,6 +11386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 850816707}
   _backgroundImage: {fileID: 850816709}
   _fillImage: {fileID: 419842075}
   _lotusVisual: {fileID: 1992812511}
@@ -11573,6 +11855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 884494752}
   _backgroundImage: {fileID: 884494754}
   _fillImage: {fileID: 453135084}
   _lotusVisual: {fileID: 793620490}
@@ -11666,6 +11949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 888430202}
   _backgroundImage: {fileID: 888430204}
   _fillImage: {fileID: 1873349321}
   _lotusVisual: {fileID: 85392238}
@@ -11759,6 +12043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 891959410}
   _backgroundImage: {fileID: 891959412}
   _fillImage: {fileID: 1550919785}
   _lotusVisual: {fileID: 1655656863}
@@ -11799,88 +12084,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 891959409}
-  m_CullTransparentMesh: 1
---- !u!1 &908112060
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 908112061}
-  - component: {fileID: 908112063}
-  - component: {fileID: 908112062}
-  m_Layer: 0
-  m_Name: UIParticle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &908112061
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908112060}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 206069877}
-  m_Father: {fileID: 2101365593}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &908112062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908112060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16f0b0b6d0b7542bfbd20a3e05b04ff1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Coffee.UIParticle::Coffee.UIExtensions.UIParticle
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_IsTrail: 0
-  m_IgnoreCanvasScaler: 0
-  m_AbsoluteMode: 0
-  m_Scale3D: {x: 10, y: 10, z: 10}
-  m_AnimatableProperties: []
-  m_Particles:
-  - {fileID: 206069878}
-  m_MeshSharing: 0
-  m_GroupId: 0
-  m_GroupMaxId: 0
-  m_PositionMode: 0
-  m_AutoScaling: 0
-  m_AutoScalingMode: 2
-  m_UseCustomView: 0
-  m_CustomViewSize: 10
-  m_TimeScaleMultiplier: 1
---- !u!222 &908112063
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908112060}
   m_CullTransparentMesh: 1
 --- !u!1 &912160785
 GameObject:
@@ -11934,6 +12137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 912160786}
   _backgroundImage: {fileID: 912160788}
   _fillImage: {fileID: 750037589}
   _lotusVisual: {fileID: 704069746}
@@ -12027,6 +12231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 922707270}
   _backgroundImage: {fileID: 922707272}
   _fillImage: {fileID: 745330156}
   _lotusVisual: {fileID: 1848524406}
@@ -12270,6 +12475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 932414842}
   _backgroundImage: {fileID: 932414844}
   _fillImage: {fileID: 483221316}
   _lotusVisual: {fileID: 1810391328}
@@ -12363,6 +12569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 934002619}
   _backgroundImage: {fileID: 934002621}
   _fillImage: {fileID: 817570099}
   _lotusVisual: {fileID: 1950963000}
@@ -12995,6 +13202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 991538720}
   _backgroundImage: {fileID: 991538722}
   _fillImage: {fileID: 633026562}
   _lotusVisual: {fileID: 1028489163}
@@ -13313,6 +13521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1024368704}
   _backgroundImage: {fileID: 1024368706}
   _fillImage: {fileID: 878797524}
   _lotusVisual: {fileID: 654721680}
@@ -13862,9 +14071,9 @@ RectTransform:
   - {fileID: 89733086}
   m_Father: {fileID: 116576643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1061393791
@@ -14268,6 +14477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1084426325}
   _backgroundImage: {fileID: 1084426327}
   _fillImage: {fileID: 974025091}
   _lotusVisual: {fileID: 1799080053}
@@ -14436,6 +14646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1098417873}
   _backgroundImage: {fileID: 1098417875}
   _fillImage: {fileID: 2060230152}
   _lotusVisual: {fileID: 1587072716}
@@ -14604,6 +14815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1102964236}
   _backgroundImage: {fileID: 1102964238}
   _fillImage: {fileID: 839176509}
   _lotusVisual: {fileID: 491299052}
@@ -14677,6 +14889,7 @@ RectTransform:
   m_Children:
   - {fileID: 1361233095}
   - {fileID: 1936279186}
+  - {fileID: 1567910415}
   m_Father: {fileID: 519299141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14707,9 +14920,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115238702}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &1125048300
 GameObject:
@@ -14763,6 +14976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1125048301}
   _backgroundImage: {fileID: 1125048303}
   _fillImage: {fileID: 1718742616}
   _lotusVisual: {fileID: 1846110}
@@ -15040,6 +15254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1150296975}
   _backgroundImage: {fileID: 1150296977}
   _fillImage: {fileID: 73863902}
   _lotusVisual: {fileID: 1514931866}
@@ -15437,6 +15652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1196811085}
   _backgroundImage: {fileID: 1196811087}
   _fillImage: {fileID: 606475182}
   _lotusVisual: {fileID: 404313661}
@@ -15939,6 +16155,7 @@ GameObject:
   - component: {fileID: 1264414198}
   - component: {fileID: 1264414200}
   - component: {fileID: 1264414199}
+  - component: {fileID: 1264414201}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -16003,6 +16220,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264414197}
   m_CullTransparentMesh: 1
+--- !u!114 &1264414201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264414197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1265457842
 GameObject:
   m_ObjectHideFlags: 0
@@ -16130,6 +16367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1266719853}
   _backgroundImage: {fileID: 1266719855}
   _fillImage: {fileID: 822283030}
   _lotusVisual: {fileID: 1681400778}
@@ -16373,6 +16611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1279376982}
   _backgroundImage: {fileID: 1279376984}
   _fillImage: {fileID: 3674833}
   _lotusVisual: {fileID: 830796115}
@@ -16616,6 +16855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1297018220}
   _backgroundImage: {fileID: 1297018222}
   _fillImage: {fileID: 1788227022}
   _lotusVisual: {fileID: 1483300900}
@@ -16784,6 +17024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1303558294}
   _backgroundImage: {fileID: 1303558296}
   _fillImage: {fileID: 1174232330}
   _lotusVisual: {fileID: 1335852189}
@@ -17102,6 +17343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1332683273}
   _backgroundImage: {fileID: 1332683275}
   _fillImage: {fileID: 1861639600}
   _lotusVisual: {fileID: 1928438675}
@@ -17252,7 +17494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -125}
   m_SizeDelta: {x: 1000, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1336176829
@@ -17513,6 +17755,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1936279186}
     m_Modifications:
+    - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_text
       value: Quit Game
@@ -17714,6 +17960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1357366662}
   _backgroundImage: {fileID: 1357366664}
   _fillImage: {fileID: 1327810443}
   _lotusVisual: {fileID: 1878081077}
@@ -18053,6 +18300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1369084512}
   _backgroundImage: {fileID: 1369084514}
   _fillImage: {fileID: 760853197}
   _lotusVisual: {fileID: 404945248}
@@ -18125,7 +18373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::JuiceManager
   canvasTransform: {fileID: 1541214801}
   mainCamera: {fileID: 519420031}
-  petalParticles: {fileID: 206069878}
+  petalParticles: {fileID: 0}
   floatingTextPrefab: {fileID: 6997910350533897987, guid: 136a4117a2ac625469e57d951eeb7604, type: 3}
 --- !u!4 &1374126107
 Transform:
@@ -18194,6 +18442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1377407657}
   _backgroundImage: {fileID: 1377407659}
   _fillImage: {fileID: 766089222}
   _lotusVisual: {fileID: 1389331426}
@@ -18247,7 +18496,7 @@ GameObject:
   - component: {fileID: 1380378048}
   - component: {fileID: 1380378047}
   m_Layer: 0
-  m_Name: BestScore
+  m_Name: BestScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18265,13 +18514,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 700802772}
+  m_Father: {fileID: 1968884628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 200}
-  m_Pivot: {x: 0.5, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1380378047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18292,7 +18541,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Best: 99999'
+  m_text: 999999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba1533de48cfe1b4c8d4ae799aba90fa, type: 2}
   m_sharedMaterial: {fileID: -4399805314268029158, guid: ba1533de48cfe1b4c8d4ae799aba90fa, type: 2}
@@ -18319,13 +18568,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 75
+  m_fontSizeBase: 75
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -18424,6 +18673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1385864878}
   _backgroundImage: {fileID: 1385864880}
   _fillImage: {fileID: 1834092073}
   _lotusVisual: {fileID: 2018888063}
@@ -18742,6 +18992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1400486495}
   _backgroundImage: {fileID: 1400486497}
   _fillImage: {fileID: 931727579}
   _lotusVisual: {fileID: 983080999}
@@ -18933,6 +19184,143 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415048268}
   m_CullTransparentMesh: 1
+--- !u!1 &1416941010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416941011}
+  - component: {fileID: 1416941013}
+  - component: {fileID: 1416941012}
+  m_Layer: 0
+  m_Name: Info_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1416941011
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416941010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846145258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -35}
+  m_SizeDelta: {x: -20, y: -50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1416941012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416941010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 14
+  m_fontSizeBase: 14
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1416941013
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416941010}
+  m_CullTransparentMesh: 1
 --- !u!1 &1435169858
 GameObject:
   m_ObjectHideFlags: 0
@@ -18985,6 +19373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1435169859}
   _backgroundImage: {fileID: 1435169861}
   _fillImage: {fileID: 1732341575}
   _lotusVisual: {fileID: 777392147}
@@ -19180,6 +19569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1452100814}
   _backgroundImage: {fileID: 1452100816}
   _fillImage: {fileID: 1254560592}
   _lotusVisual: {fileID: 870394855}
@@ -19348,6 +19738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1475685182}
   _backgroundImage: {fileID: 1475685184}
   _fillImage: {fileID: 1415048270}
   _lotusVisual: {fileID: 1755668173}
@@ -19591,6 +19982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1484264792}
   _backgroundImage: {fileID: 1484264794}
   _fillImage: {fileID: 755356825}
   _lotusVisual: {fileID: 373637492}
@@ -19759,6 +20151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1493042552}
   _backgroundImage: {fileID: 1493042554}
   _fillImage: {fileID: 628959510}
   _lotusVisual: {fileID: 1330628676}
@@ -19927,6 +20320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1506432476}
   _backgroundImage: {fileID: 1506432478}
   _fillImage: {fileID: 1297336389}
   _lotusVisual: {fileID: 365184471}
@@ -20170,6 +20564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1515697870}
   _backgroundImage: {fileID: 1515697872}
   _fillImage: {fileID: 834121281}
   _lotusVisual: {fileID: 1043570336}
@@ -20263,6 +20658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1528728316}
   _backgroundImage: {fileID: 1528728318}
   _fillImage: {fileID: 1624163421}
   _lotusVisual: {fileID: 103648679}
@@ -20356,6 +20752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1530040403}
   _backgroundImage: {fileID: 1530040405}
   _fillImage: {fileID: 637130708}
   _lotusVisual: {fileID: 1475733448}
@@ -20472,6 +20869,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1532982573}
   m_CullTransparentMesh: 1
+--- !u!1 &1539402728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1539402729}
+  - component: {fileID: 1539402731}
+  - component: {fileID: 1539402730}
+  m_Layer: 0
+  m_Name: Trophy Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1539402729
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539402728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1968884628}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!114 &1539402730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539402728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c29eacbeba5d8864e87d7e3974fa67d0, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1539402731
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539402728}
+  m_CullTransparentMesh: 1
 --- !u!1 &1539993785
 GameObject:
   m_ObjectHideFlags: 0
@@ -20579,7 +21051,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2101365593}
+  - {fileID: 398926279}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -20619,8 +21091,8 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 1080, y: 2400}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -20639,12 +21111,12 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
@@ -20786,6 +21258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1553142899}
   _backgroundImage: {fileID: 1553142901}
   _fillImage: {fileID: 1018963654}
   _lotusVisual: {fileID: 869937190}
@@ -20954,6 +21427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1561830297}
   _backgroundImage: {fileID: 1561830299}
   _fillImage: {fileID: 1265457844}
   _lotusVisual: {fileID: 558345096}
@@ -21047,6 +21521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1565943621}
   _backgroundImage: {fileID: 1565943623}
   _fillImage: {fileID: 1932003772}
   _lotusVisual: {fileID: 540658098}
@@ -21088,6 +21563,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1565943620}
   m_CullTransparentMesh: 1
+--- !u!1 &1567910414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567910415}
+  m_Layer: 0
+  m_Name: ContentContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567910415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567910414}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -19890}
+  m_LocalScale: {x: 221, y: 221, z: 221}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1115238703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1569397174
 GameObject:
   m_ObjectHideFlags: 0
@@ -21365,6 +21871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1603965689}
   _backgroundImage: {fileID: 1603965691}
   _fillImage: {fileID: 445700317}
   _lotusVisual: {fileID: 1867694516}
@@ -21758,6 +22265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1653010774}
   _backgroundImage: {fileID: 1653010776}
   _fillImage: {fileID: 1858890983}
   _lotusVisual: {fileID: 1277705566}
@@ -22151,6 +22659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1672561736}
   _backgroundImage: {fileID: 1672561738}
   _fillImage: {fileID: 156145164}
   _lotusVisual: {fileID: 689465369}
@@ -22514,9 +23023,9 @@ RectTransform:
   m_Father: {fileID: 116576643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 750}
-  m_SizeDelta: {x: -100, y: 400}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1000, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692597780
 MonoBehaviour:
@@ -22671,6 +23180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1718655569}
   _backgroundImage: {fileID: 1718655571}
   _fillImage: {fileID: 229519911}
   _lotusVisual: {fileID: 1329552953}
@@ -22839,6 +23349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1727051367}
   _backgroundImage: {fileID: 1727051369}
   _fillImage: {fileID: 992423362}
   _lotusVisual: {fileID: 1503559125}
@@ -23682,6 +24193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1768928436}
   _backgroundImage: {fileID: 1768928438}
   _fillImage: {fileID: 1084054561}
   _lotusVisual: {fileID: 1704858901}
@@ -23775,6 +24287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1774366911}
   _backgroundImage: {fileID: 1774366913}
   _fillImage: {fileID: 93707280}
   _lotusVisual: {fileID: 467501550}
@@ -23943,6 +24456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1781540137}
   _backgroundImage: {fileID: 1781540139}
   _fillImage: {fileID: 205556718}
   _lotusVisual: {fileID: 1367855624}
@@ -24036,6 +24550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1782741882}
   _backgroundImage: {fileID: 1782741884}
   _fillImage: {fileID: 550189329}
   _lotusVisual: {fileID: 1065975046}
@@ -24187,7 +24702,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 200}
+  m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1787511435
 CanvasRenderer:
@@ -24250,8 +24765,8 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -24716,6 +25231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1820228687}
   _backgroundImage: {fileID: 1820228689}
   _fillImage: {fileID: 11519252}
   _lotusVisual: {fileID: 813082830}
@@ -25634,6 +26150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1894296626}
   _backgroundImage: {fileID: 1894296628}
   _fillImage: {fileID: 1922440823}
   _lotusVisual: {fileID: 1206980895}
@@ -25727,6 +26244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1896013667}
   _backgroundImage: {fileID: 1896013669}
   _fillImage: {fileID: 983066515}
   _lotusVisual: {fileID: 1774878082}
@@ -25820,6 +26338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1904259482}
   _backgroundImage: {fileID: 1904259484}
   _fillImage: {fileID: 944459114}
   _lotusVisual: {fileID: 226903245}
@@ -26679,6 +27198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1952727091}
   _backgroundImage: {fileID: 1952727093}
   _fillImage: {fileID: 371621781}
   _lotusVisual: {fileID: 691664469}
@@ -26795,6 +27315,70 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956310365}
   m_CullTransparentMesh: 1
+--- !u!1 &1968884627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968884628}
+  - component: {fileID: 1968884629}
+  m_Layer: 0
+  m_Name: BestScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1968884628
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968884627}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1539402729}
+  - {fileID: 1380378046}
+  m_Father: {fileID: 700802772}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 100}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1968884629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968884627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 30
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1974939100
 GameObject:
   m_ObjectHideFlags: 0
@@ -26847,6 +27431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 1974939101}
   _backgroundImage: {fileID: 1974939103}
   _fillImage: {fileID: 1457832538}
   _lotusVisual: {fileID: 674554683}
@@ -27315,6 +27900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 2022679600}
   _backgroundImage: {fileID: 2022679602}
   _fillImage: {fileID: 1539993787}
   _lotusVisual: {fileID: 1053547577}
@@ -27408,6 +27994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82c0342d0efa0db4891c3bd5a9776ccf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GridCell
+  <MyRectTransform>k__BackingField: {fileID: 2024607834}
   _backgroundImage: {fileID: 2024607836}
   _fillImage: {fileID: 1739098584}
   _lotusVisual: {fileID: 647528342}
@@ -27524,7 +28111,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060230150}
   m_CullTransparentMesh: 1
---- !u!1 &2101365592
+--- !u!1 &2113865133
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -27532,49 +28119,101 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2101365593}
-  - component: {fileID: 2101365594}
+  - component: {fileID: 2113865137}
+  - component: {fileID: 2113865136}
+  - component: {fileID: 2113865135}
+  - component: {fileID: 2113865134}
   m_Layer: 0
-  m_Name: UI Container
+  m_Name: DebugCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2101365593
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101365592}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 519299141}
-  - {fileID: 908112061}
-  m_Father: {fileID: 1541214801}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2101365594
+--- !u!114 &2113865134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101365592}
+  m_GameObject: {fileID: 2113865133}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &2113865135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113865133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94acaadda7bb8ad42920b83f6f7815c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.UI.SafeArea
-  rectTransform: {fileID: 2101365593}
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1080, y: 2400}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &2113865136
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113865133}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 999
+  m_TargetDisplay: 0
+--- !u!224 &2113865137
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113865133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 846145258}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &2142181139
 GameObject:
   m_ObjectHideFlags: 0
@@ -27658,6 +28297,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1936279186}
     m_Modifications:
+    - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_text
       value: "Play \n"
@@ -27766,3 +28409,4 @@ SceneRoots:
   - {fileID: 1155094483}
   - {fileID: 1374126107}
   - {fileID: 796317750}
+  - {fileID: 2113865137}

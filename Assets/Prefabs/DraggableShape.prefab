@@ -61,4 +61,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c978698425be46744803f96b41ae2641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DraggableShape
-  _cellPrefab: {fileID: 2274822419337196715, guid: 71bf5f005d8f82d47a6aef98d0bcc6cb, type: 3}
+  cellPrefab: {fileID: 447975286920642198, guid: 71bf5f005d8f82d47a6aef98d0bcc6cb, type: 3}

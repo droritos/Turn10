@@ -45,7 +45,7 @@ namespace ZenGrid
             try
             {
                 // 1. Logic Placement
-                GridSystem.Instance.PlaceShape(shape.shapeData, gridX, gridY);
+                GridSystem.Instance.PlaceShape(shape.ShapeData, gridX, gridY);
                 
                 // 2. Score for placing
                 ScoreManager.Instance.UpdateScore(10);

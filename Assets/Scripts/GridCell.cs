@@ -9,13 +9,21 @@ namespace ZenGrid
         public bool IsLotus {get ; private set;} = false;
         public bool IsOccupied => _currentColor.HasValue;
         
+        [field:SerializeField] public RectTransform MyRectTransform { get; private set; }
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Image _fillImage;
         [SerializeField] private GameObject _lotusVisual;
 
         private Color? _currentColor = null;
         private Color _defaultBackgroundColor = new Color(1, 1, 1, 0.15f); // Fallback default
-        private void OnValidate() => EnsureReferences();
+
+        private void OnValidate()
+        {
+            EnsureReferences();
+            
+            if(!MyRectTransform)
+                MyRectTransform =  GetComponent<RectTransform>();
+        }
         private void Awake() => EnsureReferences();
 
         private void EnsureReferences()

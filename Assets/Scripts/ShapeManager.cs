@@ -89,7 +89,7 @@ namespace ZenGrid
                 {
                     for (int x = 0; x < GridSystem.Instance.Columns; x++)
                     {
-                        if (GridSystem.Instance.CanPlaceShape(shape.shapeData, x, y))
+                        if (GridSystem.Instance.CanPlaceShape(shape.ShapeData, x, y))
                         {
                             return true;
                         }

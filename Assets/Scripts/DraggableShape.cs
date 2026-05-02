@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using DG.Tweening;
 using ZenGrid;
 
 public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [Header("References")]
-    [SerializeField] private GameObject _cellPrefab; // Use the same GridCell prefab
+    [SerializeField] private GridCell cellPrefab; // Use the same GridCell prefab
     
     private ShapeData _shapeData;
     private Transform _startParent;
@@ -19,14 +16,14 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     private Transform _dragContainer;
 
     private float _timeDown;
-    private float _blockSize = 100f; // 96 cell + 4 spacing
+    private readonly float _blockSize = 100f; // 96 cell + 4 spacing
     private Vector3 _dragOffset;
     private float _trayScale;
     
     private Vector2Int _lastValidGridPos;
     private bool _hasValidGhost;
 
-    public ShapeData shapeData => _shapeData;
+    public ShapeData ShapeData => _shapeData;
 
     private void Awake()
     {
@@ -73,10 +70,9 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
             {
                 if (_shapeData.GetCell(x, y) == 1)
                 {
-                    GameObject cellObj = Instantiate(_cellPrefab, transform);
-                    GridCell cell = cellObj.GetComponent<GridCell>();
-                    
-                    RectTransform rt = cellObj.GetComponent<RectTransform>();
+                    GridCell cell = Instantiate(cellPrefab, transform);
+
+                    RectTransform rt = cell.MyRectTransform;
                     rt.sizeDelta = new Vector2(_blockSize, _blockSize);
                     rt.pivot = new Vector2(0.5f, 0.5f);
                     
@@ -92,7 +88,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData) // PickUp
     {
         if (!ZenGridManager.Instance.isGameActive) return;
 
@@ -130,8 +126,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     private void UpdatePosition(PointerEventData eventData)
     {
-        Vector2 localPoint;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)_dragContainer, eventData.position, eventData.pressEventCamera, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)_dragContainer, eventData.position, eventData.pressEventCamera, out var localPoint))
         {
             // Use local coordinates for more predictable movement
             // Offset the shape slightly upwards so it's not hidden by the finger

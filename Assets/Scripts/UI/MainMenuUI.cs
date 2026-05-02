@@ -7,15 +7,26 @@ namespace ZenGrid.UI
     {
         public override MenuType MenuType => MenuType.MainMenu;
 
-        [SerializeField] private Button _playButton;
+        [Header("Game Mode Configs")]
+        [SerializeField] private GameModeConfig _classicConfig;
+        [SerializeField] private GameModeConfig _pureZenConfig;
+
+        [Header("Buttons")]
+        [SerializeField] private Button _playClassicButton;
+        [SerializeField] private Button _playPureZenButton;
         [SerializeField] private Button _quitButton;
 
         private void Start()
         {
-            if (_playButton != null)
-                _playButton.onClick.AddListener(OnPlayClicked);
+            if (_playClassicButton != null)
+                _playClassicButton.onClick.AddListener(OnPlayClassicClicked);
             else
-                Debug.LogError("[MainMenuUI] Play Button is NOT assigned in the Inspector!", this);
+                Debug.LogError("[MainMenuUI] Play Classic Button is NOT assigned in the Inspector!", this);
+
+            if (_playPureZenButton != null)
+                _playPureZenButton.onClick.AddListener(OnPlayPureZenClicked);
+            else
+                Debug.LogError("[MainMenuUI] Play Pure Zen Button is NOT assigned in the Inspector!", this);
 
             if (_quitButton != null)
                 _quitButton.onClick.AddListener(OnQuitClicked);
@@ -25,16 +36,34 @@ namespace ZenGrid.UI
 
         private void OnDestroy()
         {
-            if (_playButton != null)
-                _playButton.onClick.RemoveListener(OnPlayClicked);
+            if (_playClassicButton != null)
+                _playClassicButton.onClick.RemoveListener(OnPlayClassicClicked);
+            if (_playPureZenButton != null)
+                _playPureZenButton.onClick.RemoveListener(OnPlayPureZenClicked);
             if (_quitButton != null)
                 _quitButton.onClick.RemoveListener(OnQuitClicked);
         }
 
-        private void OnPlayClicked()
+        private void OnPlayClassicClicked()
+        {
+            PlayWithMode(_classicConfig);
+        }
+
+        private void OnPlayPureZenClicked()
+        {
+            PlayWithMode(_pureZenConfig);
+        }
+
+        private void PlayWithMode(GameModeConfig config)
         {
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+
+            // Set mode BEFORE StartGame so all systems read the correct config
+            if (GameModeManager.Instance != null)
+                GameModeManager.Instance.SetMode(config);
+            else
+                Debug.LogWarning("[MainMenuUI] GameModeManager.Instance is null! Mode will default to Classic.");
 
             MenuManager.Instance.OpenMenu(MenuType.Gameplay);
 

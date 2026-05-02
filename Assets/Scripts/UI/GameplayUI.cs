@@ -20,10 +20,22 @@ namespace ZenGrid.UI
         [SerializeField] private TextMeshProUGUI _bestScoreText;
         [SerializeField] private Button _pauseButton;
 
+        [Header("Mode Label (Optional)")]
+        [Tooltip("Assign a TMP label to show the active mode name (e.g. 'Classic' / 'Pure Zen').")]
+        [SerializeField] private TextMeshProUGUI _modeLabel;
+
         protected override void Awake()
         {
             base.Awake();
             Instance = this;
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            // Refresh the mode label every time gameplay starts
+            if (_modeLabel != null && GameModeManager.Instance != null)
+                _modeLabel.text = GameModeManager.Instance.ModeName;
         }
 
         private void Start()

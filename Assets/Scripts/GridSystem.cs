@@ -102,7 +102,7 @@ namespace ZenGrid
                         
                         if (JuiceManager.Instance != null)
                         {
-                            JuiceManager.Instance.PlayPetals(_gridCells[placeX, placeY].transform.position, shape.color);
+                            //JuiceManager.Instance.PlayPetals(_gridCells[placeX, placeY].transform.position, shape.color);
                             JuiceManager.Instance.PopBlock(_gridCells[placeX, placeY].GetComponent<RectTransform>());
                         }
                     }

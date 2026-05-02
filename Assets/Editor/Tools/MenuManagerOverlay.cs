@@ -71,7 +71,7 @@ namespace ZenGrid.Editor
             _selectedMenu = (MenuType)EditorGUILayout.EnumPopup("Menu", _selectedMenu);
             if (GUILayout.Button("Switch"))
             {
-                MenuManager manager = Object.FindObjectOfType<MenuManager>();
+                MenuManager manager = Object.FindAnyObjectByType<MenuManager>();
                 if (manager != null) manager.PreviewMenu(_selectedMenu);
             }
         }

@@ -129,12 +129,13 @@ namespace ZenGrid
                     bool wasLotus = cell.IsLotus;
                     lastClearPos = cell.transform.position;
                     
+                    /*
                     if (JuiceManager.Instance != null)
                     {
                         if (wasLotus) JuiceManager.Instance.PlayExplosion(lastClearPos, Color.magenta);
                         else JuiceManager.Instance.PlayPetals(lastClearPos, Color.white);
                     }
-
+                    */
                     GridSystem.Instance.ClearCell(pos.x, pos.y);
                     clearedCells++;
                 }

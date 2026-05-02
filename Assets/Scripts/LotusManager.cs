@@ -8,8 +8,31 @@ namespace ZenGrid
     {
         public static LotusManager Instance;
 
-        [SerializeField] private int _turnsBetweenLotus = 5;
+        [SerializeField]
+        [Tooltip("Fallback turns-between-lotus used when no GameModeConfig is set.")]
+        private int _turnsBetweenLotus = 5;
+
         private int _turnsSinceLastLotus = 0;
+        private int _activeLotusCount = 0;
+
+        // ── Mode guard ───────────────────────────────────────────────────────
+        /// <summary>True when the active mode permits Lotus behaviour.</summary>
+        private static bool IsLotusEnabled =>
+            GameModeManager.Instance == null || GameModeManager.Instance.IsLotusEnabled;
+
+        /// <summary>Turns between seeds — reads from config if available, else inspector fallback.</summary>
+        private int TurnsBetweenLotus =>
+            GameModeManager.Instance != null
+                ? GameModeManager.Instance.TurnsBetweenLotus
+                : _turnsBetweenLotus;
+
+        /// <summary>Whether Lotus cells can spread to neighbours.</summary>
+        private static bool LotusCanSpread =>
+            GameModeManager.Instance == null || GameModeManager.Instance.LotusCanSpread;
+
+        /// <summary>Max simultaneous lotus seeds (0 = unlimited).</summary>
+        private static int MaxSimultaneousLotus =>
+            GameModeManager.Instance?.MaxSimultaneousLotus ?? 0;
 
         private void Awake()
         {
@@ -18,8 +41,10 @@ namespace ZenGrid
 
         public void OnTurnPassed(int currentPhase)
         {
+            if (!IsLotusEnabled) return;   // ← Pure Zen: skip entirely
+
             _turnsSinceLastLotus++;
-            if (currentPhase >= 2 && _turnsSinceLastLotus >= _turnsBetweenLotus)
+            if (currentPhase >= 2 && _turnsSinceLastLotus >= TurnsBetweenLotus)
             {
                 SpawnLotusSeed();
             }
@@ -27,6 +52,9 @@ namespace ZenGrid
 
         public void SpreadLotus()
         {
+            if (!IsLotusEnabled) return;    // ← Pure Zen: skip entirely
+            if (!LotusCanSpread) return;    // ← Config knob: spreading disabled
+
             List<Vector2Int> newLotusCells = new List<Vector2Int>();
             int cols = GridSystem.Instance.Columns;
             int rows = GridSystem.Instance.Rows;
@@ -61,11 +89,17 @@ namespace ZenGrid
             foreach (var pos in newLotusCells)
             {
                 GridSystem.Instance.GetCell(pos.x, pos.y).SetState(Color.magenta, true);
+                _activeLotusCount++;
             }
         }
 
         public void SpawnLotusSeed()
         {
+            if (!IsLotusEnabled) return;   // ← Pure Zen: skip entirely
+
+            // Respect max-simultaneous-lotus cap (0 = unlimited)
+            if (MaxSimultaneousLotus > 0 && _activeLotusCount >= MaxSimultaneousLotus) return;
+
             List<Vector2Int> emptyCells = new List<Vector2Int>();
             int cols = GridSystem.Instance.Columns;
             int rows = GridSystem.Instance.Rows;
@@ -87,17 +121,20 @@ namespace ZenGrid
                 GridCell cell = GridSystem.Instance.GetCell(pos.x, pos.y);
                 cell.SetState(Color.magenta, true);
                 _turnsSinceLastLotus = 0;
+                _activeLotusCount++;
 
                 if (JuiceManager.Instance != null)
                 {
                     JuiceManager.Instance.PopBlock(cell.GetComponent<RectTransform>());
-                    JuiceManager.Instance.PlayPetals(cell.transform.position, Color.magenta);
+                    //JuiceManager.Instance.PlayPetals(cell.transform.position, Color.magenta);
                 }
             }
         }
 
         public void HandleLotusExplosion(Vector2Int center, HashSet<Vector2Int> cellsToClear, ref int emptySpacesCaught)
         {
+            if (!IsLotusEnabled) return;   // ← Pure Zen: no lotus cells exist, so this should never be called — guard anyway
+
             for (int ex = -1; ex <= 1; ex++)
             {
                 for (int ey = -1; ey <= 1; ey++)
@@ -105,7 +142,7 @@ namespace ZenGrid
                     int nx = center.x + ex;
                     int ny = center.y + ey;
                     GridCell cell = GridSystem.Instance.GetCell(nx, ny);
-                    
+
                     if (cell != null)
                     {
                         if (cell.IsOccupied)
@@ -129,6 +166,7 @@ namespace ZenGrid
         public void ResetLotusProtocol()
         {
             _turnsSinceLastLotus = 0;
+            _activeLotusCount = 0;
         }
     }
 }

@@ -17,8 +17,21 @@ namespace ZenGrid
 
         // ── Mode guard ───────────────────────────────────────────────────────
         /// <summary>True when the active mode permits Lotus behaviour.</summary>
-        private static bool IsLotusEnabled =>
-            GameModeManager.Instance == null || GameModeManager.Instance.IsLotusEnabled;
+        private static bool IsLotusEnabled
+        {
+            get
+            {
+                if (GameModeManager.Instance == null)
+                {
+                    // GameModeManager is missing from the scene — Lotus is DISABLED as a safe default.
+                    // Add a GameModeManager MonoBehaviour to the scene to fix this properly.
+                    Debug.LogError("[LotusManager] GameModeManager.Instance is NULL. " +
+                                   "Add GameModeManager to the scene. Defaulting to Lotus DISABLED.");
+                    return false;
+                }
+                return GameModeManager.Instance.IsLotusEnabled;
+            }
+        }
 
         /// <summary>Turns between seeds — reads from config if available, else inspector fallback.</summary>
         private int TurnsBetweenLotus =>
@@ -28,7 +41,7 @@ namespace ZenGrid
 
         /// <summary>Whether Lotus cells can spread to neighbours.</summary>
         private static bool LotusCanSpread =>
-            GameModeManager.Instance == null || GameModeManager.Instance.LotusCanSpread;
+            GameModeManager.Instance != null && GameModeManager.Instance.LotusCanSpread;
 
         /// <summary>Max simultaneous lotus seeds (0 = unlimited).</summary>
         private static int MaxSimultaneousLotus =>
@@ -41,6 +54,10 @@ namespace ZenGrid
 
         public void OnTurnPassed(int currentPhase)
         {
+            // Diagnostic: log mode state once per turn so it's easy to verify in the Console
+            Debug.Log($"[LotusManager] OnTurnPassed — mode: {GameModeManager.Instance?.ModeName ?? "NULL"}, " +
+                      $"IsLotusEnabled: {IsLotusEnabled}, phase: {currentPhase}, turnsSinceLast: {_turnsSinceLastLotus}");
+
             if (!IsLotusEnabled) return;   // ← Pure Zen: skip entirely
 
             _turnsSinceLastLotus++;

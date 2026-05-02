@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Droplet
+  m_Name: M_UI_FrostedGlass
   m_Shader: {fileID: 4800000, guid: 349c10ef13e52264bba3fc925f4431ee, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -30,15 +30,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _HighlightHeight: 0.15
-    - _HighlightIntensity: 0.85
+    - _HighlightHeight: 0.25
+    - _HighlightIntensity: 0.4
     - _HighlightSize: 0.483
-    - _HighlightSoftness: 0.02
-    - _HighlightWidth: 0.65
+    - _HighlightSoftness: 0.3
+    - _HighlightWidth: 0.7
     - _HighlightY: 0.35
-    - _InnerShadowStrength: 0.5
-    - _RimLightIntensity: 0.45
-    - _Roundness: 0.38
+    - _InnerShadowStrength: 0.2
+    - _RimLightIntensity: 0.15
+    - _Roundness: 0.5
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0

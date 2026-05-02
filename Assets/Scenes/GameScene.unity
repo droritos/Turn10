@@ -4151,6 +4151,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.28930807
       objectReference: {fileID: 0}
+    - target: {fileID: 3578612550883803794, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7902828359015371502, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_Name
       value: PauseButton
@@ -7125,7 +7129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f5cc96ac2bd6fb4c93c66f5f21f1687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GameModeManager
-  _defaultConfig: {fileID: 11400000, guid: ab172687305df80428ad8194ce7d1851, type: 2}
+  _defaultConfig: {fileID: 0}
 --- !u!1 &558345096
 GameObject:
   m_ObjectHideFlags: 0
@@ -26213,6 +26217,10 @@ PrefabInstance:
     - target: {fileID: 37956996953451346, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
       propertyPath: m_Name
       value: Patels
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635117851151180035, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4274334868485900978, guid: a9c4557513a3a824f8469b9034cd2d31, type: 3}
       propertyPath: m_LocalPosition.x

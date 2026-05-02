@@ -10,7 +10,7 @@ Shader "ZenGrid/DropletUI"
         
         // Volume & Depth
         _InnerShadowStrength ("Edge Shadow Strength", Range(0, 1)) = 0.6
-        _RimLightIntensity ("Bottom Rim Glow", Range(0, 1)) = 0.4
+        _RimLightIntensity ("Bottom Rim Glow", Range(0, 2)) = 1.0
         
         // Glossy Highlight
         _HighlightY ("Highlight Height", Range(0, 0.5)) = 0.35
@@ -57,12 +57,10 @@ Shader "ZenGrid/DropletUI"
 
         Pass
         {
-            // Switched to URP HLSLPROGRAM
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             
-            // Replaced UnityCG.cginc with URP Core
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct appdata_t
@@ -92,7 +90,6 @@ Shader "ZenGrid/DropletUI"
             v2f vert(appdata_t IN)
             {
                 v2f OUT;
-                // Replaced UnityObjectToClipPos with URP equivalent
                 OUT.vertex = TransformObjectToHClip(IN.vertex.xyz);
                 OUT.color = IN.color * _Color; 
                 OUT.texcoord = IN.texcoord;
@@ -117,12 +114,16 @@ Shader "ZenGrid/DropletUI"
                 // 2. Liquid Volume (Darken edges)
                 float edgeGradient = smoothstep(0.0, -_Roundness - 0.2, dist);
                 half4 baseColor = IN.color;
-                baseColor.rgb = lerp(baseColor.rgb, baseColor.rgb * 0.2, edgeGradient * _InnerShadowStrength);
+                // Preserve color saturation by multiplying by a tinted dark value rather than pure black
+                baseColor.rgb = lerp(baseColor.rgb, baseColor.rgb * 0.35, edgeGradient * _InnerShadowStrength);
 
                 // 3. Bottom Rim Light (Internal Refraction)
                 float bottomMask = smoothstep(0.1, -0.4, centeredUV.y); 
                 float rimGlow = smoothstep(0.0, -_Roundness, dist) * bottomMask;
-                baseColor.rgb += (half3(1,1,1) * rimGlow * _RimLightIntensity);
+                
+                // FIX: Multiply by the shape's color (IN.color.rgb) instead of white (1,1,1)
+                // This keeps the glow rich and saturated!
+                baseColor.rgb += (IN.color.rgb * rimGlow * _RimLightIntensity);
 
                 // 4. Sharp Glass Highlight (Top Reflection)
                 float2 hlUV = centeredUV;
@@ -131,6 +132,7 @@ Shader "ZenGrid/DropletUI"
                 hlUV.y /= _HighlightHeight; 
                 
                 float hlDist = length(hlUV);
+                // Keep this pure white, as it's the reflection of the room/lights
                 float highlight = smoothstep(0.5 + _HighlightSoftness, 0.5, hlDist) * _HighlightIntensity;
 
                 // 5. Combine

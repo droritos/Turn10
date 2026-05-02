@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faeeb44a7d83630448a3137b5f7423bf, type: 3}
   m_Name: Pure Zen Mode
   m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GameModeConfig
-  mode: 1
+  modeType: 1
   displayName: Pure Zen
   description: Place shapes, clear lines, and survive the Lotus.
   turnsBetweenLotus: 0

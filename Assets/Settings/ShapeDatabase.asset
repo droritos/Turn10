@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShapeDatabase
   shapes:
   - name: Dot
-    color: {r: 1, g: 0.23529412, b: 0.18039216, a: 1}
+    color: {r: 0.85882354, g: 0.23529412, b: 0.43529412, a: 1}
     matrix: 01000000
     width: 1
     height: 1
     minPhase: 0
   - name: Square
-    color: {r: 0.8862745, g: 0.9411765, b: 0.79607844, a: 1}
+    color: {r: 0.89411765, g: 0.9372549, b: 0.57254905, a: 1}
     matrix: 01000000010000000100000001000000
     width: 2
     height: 2

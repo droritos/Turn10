@@ -15,6 +15,10 @@ namespace ZenGrid
         private void Awake()
         {
             Instance = this;
+            
+            // Mobile Optimizations
+            Application.targetFrameRate = -1;
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
 
         private void Start()

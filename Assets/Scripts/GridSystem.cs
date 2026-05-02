@@ -34,10 +34,8 @@ namespace ZenGrid
 
             // Clear existing
             // Clear old grid if any (use DestroyImmediate to ensure they are gone before we create new ones)
-            List<GameObject> children = new List<GameObject>();
-            foreach (Transform child in _gridContainer) children.Add(child.gameObject);
-            foreach (GameObject child in children) DestroyImmediate(child);
-            
+            DestroyGrid();
+
             _gridCells = new GridCell[_columns, _rows];
 
             for (int r = 0; r < _rows; r++)
@@ -52,6 +50,14 @@ namespace ZenGrid
                 }
             }
             Debug.Log("Grid Initialized");
+        }
+
+        [ContextMenu("Destroy Grid")]
+        public void DestroyGrid()
+        {
+            List<GameObject> children = new List<GameObject>();
+            foreach (Transform child in _gridContainer) children.Add(child.gameObject);
+            foreach (GameObject child in children) DestroyImmediate(child);
         }
 
         public GridCell GetCell(int x, int y)

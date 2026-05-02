@@ -76,5 +76,26 @@ namespace ZenGrid.UI
             _menus.TryGetValue(menuType, out BaseMenu menu);
             return menu;
         }
+
+#if UNITY_EDITOR
+        public void PreviewMenu(MenuType menuType)
+        {
+            // In editor mode, we might not have initialized the dictionary via Awake
+            BaseMenu[] childMenus = GetComponentsInChildren<BaseMenu>(true);
+            foreach (var menu in childMenus)
+            {
+                if (menu.MenuType == menuType)
+                {
+                    menu.Show();
+                    UnityEditor.EditorUtility.SetDirty(menu.gameObject);
+                }
+                else
+                {
+                    menu.Hide();
+                    UnityEditor.EditorUtility.SetDirty(menu.gameObject);
+                }
+            }
+        }
+#endif
     }
 }

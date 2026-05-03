@@ -38,6 +38,10 @@ namespace ZenGrid
             }
         }
 
+        public void ToggleSpectateInGameOver()
+        {
+            MenuManager.Instance.GetMenu(MenuType.MainMenu).ToggleSpectate();
+        }
         public void OnShapePlaced(DraggableShape shape, int gridX, int gridY)
         {
             try

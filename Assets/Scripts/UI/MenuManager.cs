@@ -76,7 +76,6 @@ namespace ZenGrid.UI
             _menus.TryGetValue(menuType, out BaseMenu menu);
             return menu;
         }
-
 #if UNITY_EDITOR
         public void PreviewMenu(MenuType menuType)
         {

@@ -102,7 +102,7 @@ MonoBehaviour:
   m_fontSizeMax: 80
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 4096
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 4997521502908989683}
   - component: {fileID: 3578612550883803794}
   - component: {fileID: 1151850718251952372}
+  - component: {fileID: 7156179068715685936}
   m_Layer: 0
   m_Name: Button Gui
   m_TagString: Untagged
@@ -206,7 +207,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: ef0a7fc1936cc9e478ae49971575bd4f, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -260,3 +261,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7156179068715685936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7902828359015371502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a73f7bfd9b2e448992af27fdc014e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZenUI.ButtonUI
+  <Button>k__BackingField: {fileID: 1151850718251952372}
+  <Image>k__BackingField: {fileID: 3578612550883803794}

@@ -14,6 +14,7 @@ namespace ZenGrid.UI
         [Header("Buttons")]
         [SerializeField] private Button _playClassicButton;
         [SerializeField] private Button _playPureZenButton;
+        [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _quitButton;
 
         private void Start()
@@ -32,7 +33,13 @@ namespace ZenGrid.UI
                 _quitButton.onClick.AddListener(OnQuitClicked);
             else
                 Debug.LogWarning("[MainMenuUI] Quit Button is NOT assigned in the Inspector.", this);
+            if (_settingsButton != null)
+                _settingsButton.onClick.AddListener(OnSettingsClicked);
+            else
+                Debug.LogWarning("[MainMenuUI] Quit Button is NOT assigned in the Inspector.", this);
         }
+
+        
 
         private void OnDestroy()
         {
@@ -53,7 +60,11 @@ namespace ZenGrid.UI
         {
             PlayWithMode(_pureZenConfig);
         }
-
+        private void OnSettingsClicked()
+        {
+            SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+            MenuManager.Instance.OpenMenu(MenuType.Settings);
+        }
         private void PlayWithMode(GameModeConfig config)
         {
             if (SoundManager.Instance != null)

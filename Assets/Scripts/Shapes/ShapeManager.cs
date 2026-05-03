@@ -68,7 +68,7 @@ namespace ZenGrid
                 if (!_shapePool[i].gameObject.activeSelf)
                 {
                     ShapeData randomShape = availableShapes[Random.Range(0, availableShapes.Count)];
-                    _shapePool[i].Initialize(randomShape, _trayPositions[i]);
+                    _shapePool[i].Initialize(randomShape, _trayPositions[i],GetActiveThemeCellMetrial());
                 }
             }
         }
@@ -98,5 +98,7 @@ namespace ZenGrid
             }
             return false;
         }
+
+        private Material GetActiveThemeCellMetrial() => VisualManager.Instance.ActiveTheme.CellShader;
     }
 }

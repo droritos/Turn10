@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a0e9fd9df6f9249b9892b8b9ffd776, type: 3}
+  m_Name: Glass Shader
+  m_EditorClassIdentifier: Assembly-CSharp::ZenGrid.GameVisualSettings
+  ThemeName: Glass Style
+  CellShader: {fileID: 2100000, guid: 4fb2a13ee3d10ff4191499311192ead5, type: 2}
+  UiButtonShader: {fileID: 2100000, guid: 7c56c6f4a616baf40a5ea704f3b7466a, type: 2}

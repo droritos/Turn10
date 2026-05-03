@@ -30,8 +30,11 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     
     private Vector2Int _lastValidGridPos;
     private bool _hasValidGhost;
+    private bool _isSettling; // Guard to prevent re-picking while snapping back
 
     public ShapeData ShapeData => _shapeData;
+
+    private Material _currentShader;
 
     private void OnValidate()
     {
@@ -64,10 +67,16 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(_touchAreaSize, _touchAreaSize, 0f));
     }
 #endif
-    public void Initialize(ShapeData data, Transform parent)
+    public void Initialize(ShapeData data, Transform parent,Material cellShader)
     {
+        // Kill any tween left over from a previous placement animation.
+        // Without this, a pooled shape that was mid-shrink could finish scaling
+        // to zero after it has been re-initialized with new data.
+        transform.DOKill();
+
         _shapeData = data.Clone();
         _startParent = parent;
+        _currentShader = cellShader;
         
         transform.SetParent(parent, false);
         transform.localPosition = Vector3.zero;
@@ -80,6 +89,12 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         _trayScale = Mathf.Min(0.55f, 3.0f / maxDim * 0.55f); 
         transform.localScale = Vector3.one * _trayScale;
         
+        _isSettling = false;
+        // Reset interaction state — pooled shapes may have blocksRaycasts=false
+        // from a previous placement. Without this they can't be tapped after respawn.
+        _canvasGroup.blocksRaycasts = true;
+        _canvasGroup.interactable = true;
+        _canvasGroup.alpha = 1f;
         gameObject.SetActive(true);
     }
 
@@ -120,6 +135,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
                     cell.SetState(_shapeData.color, false, false);
                     cell.SetBackground(new Color(1, 1, 1, 0.4f)); 
+                    cell.SetShaders(_currentShader);
                 }
             }
         }
@@ -127,11 +143,10 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     public void OnPointerDown(PointerEventData eventData) 
     {
-        if (!ZenGridManager.Instance.isGameActive) return;
+        if (_isSettling || !ZenGridManager.Instance.isGameActive) return;
 
         transform.DOKill();
         
-        _startPosition = _rectTransform.position;
         _timeDown = Time.time;
         
         _canvasGroup.alpha = 0.8f;
@@ -156,7 +171,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!ZenGridManager.Instance.isGameActive) return;
+        if (_isSettling || !ZenGridManager.Instance.isGameActive) return;
         UpdatePosition(eventData);
         UpdateGhostHint();
     }
@@ -186,6 +201,8 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (_isSettling) return;
+
         _canvasGroup.alpha = 1.0f;
         _canvasGroup.blocksRaycasts = true;
 
@@ -204,13 +221,27 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
         if (_hasValidGhost)
         {
-            Debug.Log($"[DraggableShape] Placing at cached ghost position: {_lastValidGridPos}");
-            
-            transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => {
-                transform.SetParent(_startParent);
-                transform.localPosition = Vector3.zero;
-                ZenGridManager.Instance.OnShapePlaced(this, _lastValidGridPos.x, _lastValidGridPos.y);
-            });
+            _isSettling = true;
+            _canvasGroup.blocksRaycasts = false;
+
+            ZenGridManager.Instance.OnShapePlaced(this, _lastValidGridPos.x, _lastValidGridPos.y);
+
+            // OnShapePlaced may trigger SpawnTrayShapes which re-initializes THIS shape.
+            // If it did, the shape is already active and fresh — don't shrink it.
+            if (!gameObject.activeSelf)
+            {
+                transform.DOScale(Vector3.zero, 0.15f).SetEase(Ease.InBack).OnComplete(() =>
+                {
+                    _isSettling = false;
+                    transform.SetParent(_startParent);
+                    transform.localPosition = Vector3.zero;
+                });
+            }
+            else
+            {
+                // Already re-spawned — unlock immediately.
+                _isSettling = false;
+            }
         }
         else
         {
@@ -226,8 +257,15 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
     private void SnapBack()
     {
+        _isSettling = true;
         transform.SetParent(_startParent);
-        _rectTransform.DOMove(_startPosition, 0.3f).SetEase(Ease.OutBack);
+        
+        // Use LocalMove to (0,0,0) so it always goes back to the center of its slot,
+        // no matter where the tray or the shape currently is in world space.
+        _rectTransform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.OutBack).OnComplete(() => {
+            _isSettling = false;
+        });
+        
         transform.DOScale(Vector3.one * _trayScale, 0.3f).SetEase(Ease.OutBack);
     }
 

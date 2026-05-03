@@ -44,5 +44,18 @@ namespace ZenGrid.UI
             CanvasGroup.interactable = false;
             CanvasGroup.blocksRaycasts = false;
         }
+
+        public virtual void ToggleSpectate()
+        {
+            if (Mathf.Approximately(CanvasGroup.alpha, 0.5f))
+            {
+                CanvasGroup.alpha = 0f;
+            }
+            else 
+                CanvasGroup.alpha = 0.5f;
+            
+            CanvasGroup.interactable = false;
+            CanvasGroup.blocksRaycasts = false;
+        }
     }
 }

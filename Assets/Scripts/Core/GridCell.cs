@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Newtonsoft.Json.Bson;
 
 namespace ZenGrid
 {
@@ -41,6 +42,11 @@ namespace ZenGrid
             }
         }
 
+        public void SetShaders(Material material)
+        {
+            _backgroundImage.material = material;
+            _fillImage.material = material;
+        }
         public void SetBackground(Color color)
         {
             EnsureReferences();

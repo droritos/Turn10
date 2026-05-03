@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5649336821413648867}
   - component: {fileID: 4727089348268125422}
   - component: {fileID: 447975286920642198}
+  - component: {fileID: 1234882659742243851}
   m_Layer: 0
   m_Name: GridCell
   m_TagString: Untagged
@@ -169,6 +170,21 @@ MonoBehaviour:
   _backgroundImage: {fileID: 4727089348268125422}
   _fillImage: {fileID: 6074712949649421530}
   _lotusVisual: {fileID: 88226063399096566}
+--- !u!114 &1234882659742243851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274822419337196715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: -0.08, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7807392504621516919
 GameObject:
   m_ObjectHideFlags: 0

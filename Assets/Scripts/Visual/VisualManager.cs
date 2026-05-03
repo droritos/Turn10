@@ -32,13 +32,13 @@ namespace ZenGrid
             {
                 Instance = this;
                 _activeTheme = _defaultTheme;
-                // Optional: Make this persist across scenes if your Main Menu and Game are different scenes
-                // DontDestroyOnLoad(gameObject); 
+                SetTheme(_activeTheme);
             }
             else
             {
                 Destroy(gameObject);
             }
+            
         }
         private void OnValidate()
         {

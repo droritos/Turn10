@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI; // <-- ADDED THIS for the Image component
 using UnityEngine.EventSystems;
@@ -12,7 +11,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     
     [Header("Touch Settings")]
     [Tooltip("How big the invisible touch area should be around the shape.")]
-    [SerializeField] private float _touchAreaSize = 450f;
+    [SerializeField] private float _touchAreaSize = 550f;
     
     private ShapeData _shapeData;
     private Transform _startParent;
@@ -90,8 +89,6 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         transform.localScale = Vector3.one * _trayScale;
         
         _isSettling = false;
-        // Reset interaction state — pooled shapes may have blocksRaycasts=false
-        // from a previous placement. Without this they can't be tapped after respawn.
         _canvasGroup.blocksRaycasts = true;
         _canvasGroup.interactable = true;
         _canvasGroup.alpha = 1f;
@@ -161,7 +158,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         transform.SetAsLastSibling();
         
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlaySFX(SoundManager.SFX.SelectShape);
+            SoundManager.Instance.PlaySFX(SoundManager.SFXType.SelectShape);
         
         transform.DOScale(Vector3.one * 1.0f, 0.2f).SetEase(Ease.OutBack);
         
@@ -180,8 +177,34 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)_dragContainer, eventData.position, eventData.pressEventCamera, out var localPoint))
         {
-            _rectTransform.anchoredPosition = localPoint + new Vector2(0, 120f); 
+            // Anchor the shape above the finger from its LOWEST cell, not its center.
+            // This keeps the gap consistent after rotation.
+            float scale       = transform.localScale.y;
+            float bottomEdge  = GetShapeBottomEdgeY() * scale; // negative = below pivot
+            float offsetY     = _gapAboveFinger - bottomEdge;  // push pivot up so bottom clears finger
+
+            _rectTransform.anchoredPosition = new Vector2(localPoint.x, localPoint.y + offsetY);
         }
+    }
+
+    [SerializeField, Tooltip("Pixels between the bottom cell of the held shape and the finger.")]
+    private float _gapAboveFinger = 60f;
+
+    /// <summary>
+    /// Returns the Y coordinate of the bottom edge of the lowest occupied cell,
+    /// in the shape's un-scaled local space (negative = below the pivot).
+    /// </summary>
+    private float GetShapeBottomEdgeY()
+    {
+        int lowestRow = 0;
+        for (int y = 0; y < _shapeData.height; y++)
+            for (int x = 0; x < _shapeData.width; x++)
+                if (_shapeData.GetCell(x, y) == 1)
+                    lowestRow = y;
+
+        // Cell center Y in local space (positive = up, so high row index = negative Y)
+        float cellCenterY = -(lowestRow - _shapeData.height / 2f + 0.5f) * _blockSize;
+        return cellCenterY - _blockSize / 2f; // bottom edge of that cell
     }
 
     private void UpdateGhostHint()
@@ -226,8 +249,6 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
 
             ZenGridManager.Instance.OnShapePlaced(this, _lastValidGridPos.x, _lastValidGridPos.y);
 
-            // OnShapePlaced may trigger SpawnTrayShapes which re-initializes THIS shape.
-            // If it did, the shape is already active and fresh — don't shrink it.
             if (!gameObject.activeSelf)
             {
                 transform.DOScale(Vector3.zero, 0.15f).SetEase(Ease.InBack).OnComplete(() =>

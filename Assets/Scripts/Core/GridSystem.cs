@@ -98,7 +98,7 @@ namespace ZenGrid
                     {
                         int placeX = gridX + x;
                         int placeY = gridY + y;
-                        _gridCells[placeX, placeY].SetState(shape.color, false);
+                        _gridCells[placeX, placeY].SetState(shape.color, false, false);
                         
                         if (JuiceManager.Instance != null)
                         {

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using Newtonsoft.Json.Bson;
 
 namespace ZenGrid
 {
@@ -66,34 +65,25 @@ namespace ZenGrid
                 {
                     _fillImage.gameObject.SetActive(true);
                     _fillImage.color = color.Value;
-                    
                     if (animate)
                     {
                         _fillImage.rectTransform.localScale = Vector3.zero;
+                        _fillImage.rectTransform.DOKill();   // ← ADD THIS
                         _fillImage.rectTransform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
                     }
-                    else
-                    {
-                        _fillImage.rectTransform.localScale = Vector3.one;
-                    }
+                    else { _fillImage.rectTransform.localScale = Vector3.one; }
                 }
             }
             else
             {
-                if (_fillImage != null)
+                if (_fillImage != null && animate)
                 {
-                    if (animate)
-                    {
-                        _fillImage.rectTransform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() => {
-                            if (_fillImage != null) _fillImage.gameObject.SetActive(false);
-                        });
-                    }
-                    else
-                    {
-                        _fillImage.gameObject.SetActive(false);
-                    }
+                    _fillImage.rectTransform.DOKill();       // ← ADD THIS
+                    _fillImage.rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack)
+                        .OnComplete(() => { if (_fillImage != null) _fillImage.gameObject.SetActive(false); });
                 }
             }
+
 
             if (_lotusVisual != null)
             {

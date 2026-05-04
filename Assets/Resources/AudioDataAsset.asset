@@ -41,6 +41,9 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: f33f63421e8776f49a34a76fbdd98313, type: 3}
     volume: 1
     pitch: 1
+  - key: 7
+    clip: {fileID: 8300000, guid: ad8f1fa936469a34eb96056bce5f7613, type: 3}
+    volume: 1
+    pitch: 1
   musicPlaylist:
-  - {fileID: 8300000, guid: 099797e46a0d37c4a8a3cefadf1e3f1d, type: 3}
-  - {fileID: 8300000, guid: 535a62d47d7be5f49864795c498f7f7b, type: 3}
+  - {fileID: 8300000, guid: 6fd791b643239d641a7e2b8a8fdadefc, type: 3}

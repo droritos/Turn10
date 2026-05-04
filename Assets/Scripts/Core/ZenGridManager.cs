@@ -54,7 +54,7 @@ namespace ZenGrid
 
                 // 3. Audio/Visuals
                 if (JuiceManager.Instance != null) JuiceManager.Instance.ScreenShake(0.1f, 5f);
-                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFX.PlaceShape);
+                if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.PlaceShape);
 
                 // 4. Lotus Protocol
                 LotusManager.Instance.SpreadLotus();
@@ -153,7 +153,7 @@ namespace ZenGrid
 
                 if (SoundManager.Instance != null)
                 {
-                    var sfx = linesCleared > 1 ? SoundManager.SFX.MultiLineClear : SoundManager.SFX.ClearLine;
+                    var sfx = linesCleared > 1 ? SoundManager.SFXType.MultiLineClear : SoundManager.SFXType.ClearLine;
                     SoundManager.Instance.PlaySFX(sfx);
                 }
 
@@ -161,7 +161,7 @@ namespace ZenGrid
                 {
                     int bonus = emptySpacesCaught * 500;
                     points += bonus;
-                    if (bonus > 0 && SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFX.TranquilityBonus);
+                    if (bonus > 0 && SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.TranquilityBonus);
                     if (JuiceManager.Instance != null) JuiceManager.Instance.SpawnFloatingText(lastClearPos, "+" + points, new Color(1f, 0.5f, 0.8f), 1.3f);
                 }
                 else
@@ -179,7 +179,7 @@ namespace ZenGrid
 
         private void GameOver()
         {
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFX.GameOver);
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.GameOver);
 
             if (GameOverUI.Instance != null)
                 GameOverUI.Instance.Populate(ScoreManager.Instance.Score, ScoreManager.Instance.BestScore);

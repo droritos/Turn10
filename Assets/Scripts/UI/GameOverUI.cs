@@ -61,7 +61,7 @@ namespace ZenGrid.UI
         private void OnRestartClicked()
         {
             if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+                SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
 
             UnityEngine.SceneManagement.SceneManager.LoadScene(
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
@@ -70,7 +70,7 @@ namespace ZenGrid.UI
         private void OnMainMenuClicked()
         {
             if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+                SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
 
             // Go back to main menu without reloading the scene
             MenuManager.Instance.OpenMenu(MenuType.MainMenu);

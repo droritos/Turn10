@@ -7,12 +7,12 @@ public class AudioData : ScriptableObject
     [System.Serializable]
     public struct SFXEntry
     {
-        public SoundManager.SFX key;
+        public SoundManager.SFXType key;
         public AudioClip clip;
         [Range(0f, 1f)] public float volume;
         [Range(0.5f, 2f)] public float pitch;
 
-        public SFXEntry(SoundManager.SFX key)
+        public SFXEntry(SoundManager.SFXType key)
         {
             this.key = key;
             this.clip = null;
@@ -24,7 +24,7 @@ public class AudioData : ScriptableObject
     public List<SFXEntry> sfxList = new List<SFXEntry>();
     public List<AudioClip> musicPlaylist = new List<AudioClip>();
 
-    public AudioClip GetSFX(SoundManager.SFX key, out float vol, out float pitch)
+    public AudioClip GetSFX(SoundManager.SFXType key, out float vol, out float pitch)
     {
         vol = 1f;
         pitch = 1f;

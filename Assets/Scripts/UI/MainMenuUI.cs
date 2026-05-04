@@ -62,13 +62,13 @@ namespace ZenGrid.UI
         }
         private void OnSettingsClicked()
         {
-            SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+            SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
             MenuManager.Instance.OpenMenu(MenuType.Settings);
         }
         private void PlayWithMode(GameModeConfig config)
         {
             if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+                SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
 
             // Set mode BEFORE StartGame so all systems read the correct config
             if (GameModeManager.Instance != null)
@@ -87,7 +87,7 @@ namespace ZenGrid.UI
         private void OnQuitClicked()
         {
             if (SoundManager.Instance != null)
-                SoundManager.Instance.PlaySFX(SoundManager.SFX.ButtonClick);
+                SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
 
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

@@ -32,7 +32,7 @@ MonoBehaviour:
     height: 3
     minPhase: 1
   - name: Line4
-    color: {r: 0.78039217, g: 0.80784315, b: 0.91764706, a: 1}
+    color: {r: 0.95686275, g: 0.6509804, b: 0.91046304, a: 1}
     matrix: 01000000010000000100000001000000
     width: 4
     height: 1

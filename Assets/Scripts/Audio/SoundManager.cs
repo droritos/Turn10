@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     // ──────────────────────────────────────────────────────────
     //  Enum Catalogue — add new SFX here freely
     // ──────────────────────────────────────────────────────────
-    public enum SFX
+    public enum SFXType
     {
         PlaceShape,
         SelectShape,
@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
         TranquilityBonus,
         GameOver,
         ButtonClick,
+        BackToTray,
         // Future entries go here ↓
     }
 
@@ -103,12 +104,12 @@ public class SoundManager : MonoBehaviour
     // ──────────────────────────────────────────────────────────
 
     /// <summary>Play a catalogued SFX.</summary>
-    public void PlaySFX(SFX sfx)
+    public void PlaySFX(SFXType sfxType)
     {
         if (audioData == null) return;
         
-        AudioClip clip = audioData.GetSFX(sfx, out float vol, out float pitch);
-        if (clip == null) { Debug.LogWarning($"[SoundManager] No clip assigned for SFX.{sfx}"); return; }
+        AudioClip clip = audioData.GetSFX(sfxType, out float vol, out float pitch);
+        if (clip == null) { Debug.LogWarning($"[SoundManager] No clip assigned for SFX.{sfxType}"); return; }
         
         _sfxSource.pitch = pitch;
         _sfxSource.PlayOneShot(clip, vol);

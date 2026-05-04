@@ -22,9 +22,8 @@ namespace ZenUI
 
         // ── Lifecycle ──────────────────────────────────────────
 
-        private void Awake()
+        protected override void Awake()
         {
-            // Restore persisted state
             base.Awake();
             _musicMuted = PlayerPrefs.GetInt(PREF_MUSIC_MUTED, 0) == 1;
             _sfxMuted   = PlayerPrefs.GetInt(PREF_SFX_MUTED,   0) == 1;

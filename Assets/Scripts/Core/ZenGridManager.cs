@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using ZenGrid.UI;
 
 namespace ZenGrid
 {
     public class ZenGridManager : MonoBehaviour
     {
+        public UnityAction ShapePlacedEvent;
         public static ZenGridManager Instance;
 
         public bool isGameActive = false;
@@ -56,9 +58,9 @@ namespace ZenGrid
                 if (JuiceManager.Instance != null) JuiceManager.Instance.ScreenShake(0.1f, 5f);
                 if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.PlaceShape);
 
-                // 4. Lotus Protocol
-                LotusManager.Instance.SpreadLotus();
-                LotusManager.Instance.OnTurnPassed(ScoreManager.Instance.CurrentPhase);
+               //// 4. Lotus Protocol
+               //LotusManager.Instance.SpreadLotus();
+               //LotusManager.Instance.OnTurnPassed(ScoreManager.Instance.CurrentPhase);
 
                 // 5. Line Checking
                 CheckLines();
@@ -76,6 +78,8 @@ namespace ZenGrid
                 {
                     GameOver();
                 }
+                
+                ShapePlacedEvent?.Invoke();
             }
             catch (System.Exception e)
             {

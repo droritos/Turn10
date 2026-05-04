@@ -3,6 +3,7 @@ using UnityEngine.UI; // <-- ADDED THIS for the Image component
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using ZenGrid;
+using ZenGrid.UI;
 
 public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
@@ -297,12 +298,15 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         _shapeData.RotateClockwise();
         BuildVisuals();
-        
+
         float maxDim = Mathf.Max(_shapeData.width, _shapeData.height);
-        _trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f); 
-        
+        _trayScale = Mathf.Min(0.65f, 3.0f / maxDim * 0.65f);
+
         transform.DOKill();
         transform.localScale = Vector3.one * (_trayScale + 0.15f);
         transform.DOScale(Vector3.one * _trayScale, 0.2f).SetEase(Ease.OutBounce);
+
+        // Notify the tutorial system — auto-dismisses the rotate hint
+        TutorialManager.NotifyRotated();
     }
 }

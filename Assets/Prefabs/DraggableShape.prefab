@@ -68,7 +68,7 @@ MonoBehaviour:
   _canvasGroup: {fileID: 602787546522142728}
   _rectTransform: {fileID: 2172530580985016695}
   _hitboxImage: {fileID: 2564558730839689177}
-  _gapAboveFinger: 60
+  _gapAboveFinger: 150
 --- !u!222 &7725041074522429912
 CanvasRenderer:
   m_ObjectHideFlags: 0

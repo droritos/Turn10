@@ -280,7 +280,10 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         _isSettling = true;
         transform.SetParent(_startParent);
-        
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.PlaySFX(SoundManager.SFXType.BackToTray);
+
         // Use LocalMove to (0,0,0) so it always goes back to the center of its slot,
         // no matter where the tray or the shape currently is in world space.
         _rectTransform.DOLocalMove(Vector3.zero, 0.3f).SetEase(Ease.OutBack).OnComplete(() => {

@@ -45,6 +45,10 @@ public class SoundManager : MonoBehaviour
     private AudioSource _musicSource;
     private int _currentMusicIndex = -1;
 
+    // Pre-mute volume memory
+    private float _savedMusicVolume = -1f;
+    private float _savedSfxVolume   = -1f;
+
     // Exposed mixer group name constants (match the mixer asset)
     private const string MASTER_PARAM = "MasterVol";
     private const string SFX_PARAM    = "SFXVol";
@@ -165,6 +169,34 @@ public class SoundManager : MonoBehaviour
     {
         musicVolume = Mathf.Clamp01(v);
         SetMixerParam(MUSIC_PARAM, musicVolume);
+    }
+
+    /// <summary>Mute or unmute music, preserving the previous volume level.</summary>
+    public void SetMusicMuted(bool mute)
+    {
+        if (mute)
+        {
+            _savedMusicVolume = musicVolume > 0f ? musicVolume : 0.6f;
+            SetMusicVolume(0f);
+        }
+        else
+        {
+            SetMusicVolume(_savedMusicVolume > 0f ? _savedMusicVolume : 0.6f);
+        }
+    }
+
+    /// <summary>Mute or unmute SFX, preserving the previous volume level.</summary>
+    public void SetSFXMuted(bool mute)
+    {
+        if (mute)
+        {
+            _savedSfxVolume = sfxVolume > 0f ? sfxVolume : 1f;
+            SetSFXVolume(0f);
+        }
+        else
+        {
+            SetSFXVolume(_savedSfxVolume > 0f ? _savedSfxVolume : 1f);
+        }
     }
 
     // ──────────────────────────────────────────────────────────

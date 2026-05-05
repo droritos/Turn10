@@ -13,10 +13,6 @@ namespace ZenUI
         [SerializeField] ButtonUI _sfxToggleButton;
         [SerializeField] ButtonUI _returnToMainMenuButton;
 
-        // PlayerPrefs keys — persistent across sessions
-        private const string PREF_MUSIC_MUTED = "MusicMuted";
-        private const string PREF_SFX_MUTED   = "SFXMuted";
-
         private bool _musicMuted;
         private bool _sfxMuted;
 
@@ -25,8 +21,10 @@ namespace ZenUI
         protected override void Awake()
         {
             base.Awake();
-            _musicMuted = PlayerPrefs.GetInt(PREF_MUSIC_MUTED, 0) == 1;
-            _sfxMuted   = PlayerPrefs.GetInt(PREF_SFX_MUTED,   0) == 1;
+            
+            // Read from the shared SoundManager keys
+            _musicMuted = PlayerPrefs.GetInt(SoundManager.PREF_MUSIC_MUTED, 0) == 1;
+            _sfxMuted   = PlayerPrefs.GetInt(SoundManager.PREF_SFX_MUTED,   0) == 1;
         }
 
         private void OnEnable()
@@ -66,7 +64,7 @@ namespace ZenUI
         private void ToggleMusic()
         {
             _musicMuted = !_musicMuted;
-            PlayerPrefs.SetInt(PREF_MUSIC_MUTED, _musicMuted ? 1 : 0);
+            PlayerPrefs.SetInt(SoundManager.PREF_MUSIC_MUTED, _musicMuted ? 1 : 0);
             PlayerPrefs.Save();
 
             ApplyMusicMute(_musicMuted);
@@ -79,7 +77,7 @@ namespace ZenUI
         private void ToggleSFX()
         {
             _sfxMuted = !_sfxMuted;
-            PlayerPrefs.SetInt(PREF_SFX_MUTED, _sfxMuted ? 1 : 0);
+            PlayerPrefs.SetInt(SoundManager.PREF_SFX_MUTED, _sfxMuted ? 1 : 0);
             PlayerPrefs.Save();
 
             ApplySFXMute(_sfxMuted);
@@ -127,4 +125,3 @@ namespace ZenUI
         }
     }
 }
-

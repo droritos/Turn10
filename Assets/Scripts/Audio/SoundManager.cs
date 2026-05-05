@@ -8,6 +8,10 @@ using UnityEngine.Audio;
 /// </summary>
 public class SoundManager : MonoBehaviour
 {
+    // --- ADDED: Public keys so all scripts use the exact same strings ---
+    public const string PREF_MUSIC_MUTED = "MusicMuted";
+    public const string PREF_SFX_MUTED   = "SFXMuted";
+
     // ──────────────────────────────────────────────────────────
     //  Enum Catalogue — add new SFX here freely
     // ──────────────────────────────────────────────────────────
@@ -54,9 +58,6 @@ public class SoundManager : MonoBehaviour
     private const string SFX_PARAM    = "SFXVol";
     private const string MUSIC_PARAM  = "MusicVol";
 
-    // ──────────────────────────────────────────────────────────
-    //  Lifecycle
-    // ──────────────────────────────────────────────────────────
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -65,11 +66,17 @@ public class SoundManager : MonoBehaviour
 
         BuildSources();
 
-        // Load mixer from Resources if not assigned in Inspector
         if (mixer == null)
             mixer = Resources.Load<AudioMixer>("ZenGridMixer");
+    }
 
-        SyncVolumes();
+    private void Start()
+    {
+        AssignMixerGroups();
+        
+        SyncVolumes(); 
+        
+        PlayNextMusic();
     }
 
     private void BuildSources()
@@ -87,13 +94,6 @@ public class SoundManager : MonoBehaviour
         _musicSource.playOnAwake = false;
         _musicSource.loop = false; // We'll manage looping/playlist manually
     }
-
-    private void Start()
-    {
-        AssignMixerGroups();
-        PlayNextMusic();
-    }
-
     private void Update()
     {
         // Simple playlist progression
@@ -107,7 +107,6 @@ public class SoundManager : MonoBehaviour
     //  Public API
     // ──────────────────────────────────────────────────────────
 
-    /// <summary>Play a catalogued SFX.</summary>
     public void PlaySFX(SFXType sfxType)
     {
         if (audioData == null) return;
@@ -119,7 +118,6 @@ public class SoundManager : MonoBehaviour
         _sfxSource.PlayOneShot(clip, vol);
     }
 
-    /// <summary>Play any clip directly through the SFX bus.</summary>
     public void PlaySFXClip(AudioClip clip)
     {
         if (clip == null) return;
@@ -127,7 +125,6 @@ public class SoundManager : MonoBehaviour
         _sfxSource.PlayOneShot(clip);
     }
 
-    /// <summary>Cross-fade to the next background music track.</summary>
     public void PlayNextMusic()
     {
         if (audioData == null || audioData.musicPlaylist.Count == 0) return;
@@ -135,7 +132,6 @@ public class SoundManager : MonoBehaviour
         PlayMusicTrack(_currentMusicIndex);
     }
 
-    /// <summary>Play a specific music track index (0-based).</summary>
     public void PlayMusicTrack(int index)
     {
         if (audioData == null || index < 0 || index >= audioData.musicPlaylist.Count) return;
@@ -147,31 +143,26 @@ public class SoundManager : MonoBehaviour
         _musicSource.Play();
     }
 
-    /// <summary>Stop music immediately.</summary>
     public void StopMusic() => _musicSource.Stop();
 
-    /// <summary>Set master volume (0–1).</summary>
     public void SetMasterVolume(float v)
     {
         masterVolume = Mathf.Clamp01(v);
         SetMixerParam(MASTER_PARAM, masterVolume);
     }
 
-    /// <summary>Set SFX group volume (0–1).</summary>
     public void SetSFXVolume(float v)
     {
         sfxVolume = Mathf.Clamp01(v);
         SetMixerParam(SFX_PARAM, sfxVolume);
     }
 
-    /// <summary>Set Music group volume (0–1).</summary>
     public void SetMusicVolume(float v)
     {
         musicVolume = Mathf.Clamp01(v);
         SetMixerParam(MUSIC_PARAM, musicVolume);
     }
 
-    /// <summary>Mute or unmute music, preserving the previous volume level.</summary>
     public void SetMusicMuted(bool mute)
     {
         if (mute)
@@ -185,7 +176,6 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    /// <summary>Mute or unmute SFX, preserving the previous volume level.</summary>
     public void SetSFXMuted(bool mute)
     {
         if (mute)
@@ -203,19 +193,25 @@ public class SoundManager : MonoBehaviour
     //  Private helpers
     // ──────────────────────────────────────────────────────────
 
-
-
     private void SyncVolumes()
     {
+        // 1. Set the baseline volumes
         SetMixerParam(MASTER_PARAM, masterVolume);
         SetMixerParam(SFX_PARAM,    sfxVolume);
         SetMixerParam(MUSIC_PARAM,  musicVolume);
+
+        // 2. CHECK PLAYER PREFS IMMEDIATELY ON WAKEUP
+        bool isMusicMuted = PlayerPrefs.GetInt(PREF_MUSIC_MUTED, 0) == 1;
+        bool isSfxMuted   = PlayerPrefs.GetInt(PREF_SFX_MUTED, 0) == 1;
+
+        // 3. Apply those mutes
+        SetMusicMuted(isMusicMuted);
+        SetSFXMuted(isSfxMuted);
     }
 
     private void SetMixerParam(string param, float linearVolume)
     {
         if (mixer == null) return;
-        // Mixer uses decibels; convert linear [0,1] → dB with -80 floor
         float db = linearVolume > 0.0001f ? Mathf.Log10(linearVolume) * 20f : -80f;
         mixer.SetFloat(param, db);
     }

@@ -1992,9 +1992,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116576642}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &116576646
 MonoBehaviour:
@@ -15889,8 +15889,8 @@ GameObject:
   - component: {fileID: 1145895373}
   - component: {fileID: 1145895375}
   - component: {fileID: 1145895377}
-  - component: {fileID: 1145895376}
   - component: {fileID: 1145895378}
+  - component: {fileID: 1145895376}
   m_Layer: 0
   m_Name: GameOverScreen
   m_TagString: Untagged
@@ -15945,7 +15945,7 @@ MonoBehaviour:
   _finalScoreText: {fileID: 1064792404}
   _finalBestScoreText: {fileID: 1380378047}
   _restartButton: {fileID: 1215904125}
-  _mainMenuButton: {fileID: 1841149137}
+  _spectateButton: {fileID: 1841149137}
 --- !u!225 &1145895377
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15954,9 +15954,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145895372}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &1145895378
 MonoBehaviour:
@@ -15974,9 +15974,9 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 500
+    m_Bottom: 350
   m_ChildAlignment: 7
-  m_Spacing: 137.31
+  m_Spacing: 100
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

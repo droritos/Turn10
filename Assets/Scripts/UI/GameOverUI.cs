@@ -20,7 +20,7 @@ namespace ZenGrid.UI
 
         [Header("Buttons")]
         [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _mainMenuButton;
+        [SerializeField] private Button _spectateButton;
 
         protected override void Awake()
         {
@@ -35,16 +35,16 @@ namespace ZenGrid.UI
             else
                 Debug.LogWarning("[GameOverUI] Restart Button not assigned.", this);
 
-            if (_mainMenuButton != null)
-                _mainMenuButton.onClick.AddListener(OnMainMenuClicked);
+            if (_spectateButton != null)
+                _spectateButton.onClick.AddListener(OnSpectateClicked);
         }
 
         private void OnDestroy()
         {
             if (_restartButton != null)
                 _restartButton.onClick.RemoveListener(OnRestartClicked);
-            if (_mainMenuButton != null)
-                _mainMenuButton.onClick.RemoveListener(OnMainMenuClicked);
+            if (_spectateButton != null)
+                _spectateButton.onClick.RemoveListener(OnSpectateClicked);
         }
 
         /// <summary>
@@ -67,13 +67,12 @@ namespace ZenGrid.UI
                 UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
         }
 
-        private void OnMainMenuClicked()
+        private void OnSpectateClicked()
         {
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
 
-            // Go back to main menu without reloading the scene
-            MenuManager.Instance.OpenMenu(MenuType.MainMenu);
+            ZenGridManager.Instance.ToggleSpectateInGameOver();      
         }
     }
 }

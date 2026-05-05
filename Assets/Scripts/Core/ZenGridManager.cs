@@ -39,7 +39,17 @@ namespace ZenGrid
                 ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
             }
         }
+        [ContextMenu("Game Over")]
+        public void GameOver()
+        {
+            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.GameOver);
 
+            if (GameOverUI.Instance != null)
+                GameOverUI.Instance.Populate(ScoreManager.Instance.Score, ScoreManager.Instance.BestScore);
+
+            if (MenuManager.Instance != null)
+                MenuManager.Instance.OpenMenu(MenuType.GameOver);
+        }
         public void ToggleSpectateInGameOver()
         {
             MenuManager.Instance.GetMenu(MenuType.MainMenu).ToggleSpectate();
@@ -180,17 +190,8 @@ namespace ZenGrid
                 ScoreManager.Instance.UpdateScore(points);
             }
         }
-
-        private void GameOver()
-        {
-            if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.GameOver);
-
-            if (GameOverUI.Instance != null)
-                GameOverUI.Instance.Populate(ScoreManager.Instance.Score, ScoreManager.Instance.BestScore);
-
-            if (MenuManager.Instance != null)
-                MenuManager.Instance.OpenMenu(MenuType.GameOver);
-        }
+        
+        
 
         public void RestartGame()
         {

@@ -100,8 +100,7 @@ namespace ZenGrid
 
         private void CheckLines()
         {
-            List<int> rowsToClear, colsToClear;
-            GridSystem.Instance.GetFullLines(out rowsToClear, out colsToClear);
+            GridSystem.Instance.GetFullLines(out var rowsToClear, out var colsToClear);
 
             if (rowsToClear.Count == 0 && colsToClear.Count == 0) return;
 

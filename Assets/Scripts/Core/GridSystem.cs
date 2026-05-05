@@ -104,12 +104,11 @@ namespace ZenGrid
                 }
             }
 
-            // 2. Check if this placement just caused any lines to be full
+            // 2. Check which lines are now full
             GetFullLines(out var rowsToClear, out var colsToClear);
-            bool willClear = rowsToClear.Count > 0 || colsToClear.Count > 0;
 
-            // 3. ONLY play the "Pop" animation if we are NOT about to clear the line
-            if (!willClear && JuiceManager.Instance != null)
+            // 3. Apply the Pop animation ONLY to the blocks that survive!
+            if (JuiceManager.Instance != null)
             {
                 for (int y = 0; y < shape.height; y++)
                 {
@@ -119,7 +118,15 @@ namespace ZenGrid
                         {
                             int placeX = gridX + x;
                             int placeY = gridY + y;
-                            JuiceManager.Instance.PopBlock(_gridCells[placeX, placeY].MyRectTransform);
+
+                            // Check if this specific block is sitting in a line that is about to explode
+                            bool isGettingCleared = rowsToClear.Contains(placeY) || colsToClear.Contains(placeX);
+
+                            // Only pop if it is staying on the board!
+                            if (!isGettingCleared)
+                            {
+                                JuiceManager.Instance.PopBlock(_gridCells[placeX, placeY].MyRectTransform);
+                            }
                         }
                     }
                 }

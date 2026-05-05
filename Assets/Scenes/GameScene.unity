@@ -15482,9 +15482,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115238702}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1 &1125048300
 GameObject:
@@ -15946,6 +15946,10 @@ MonoBehaviour:
   _finalBestScoreText: {fileID: 1380378047}
   _restartButton: {fileID: 1215904125}
   _spectateButton: {fileID: 1841149137}
+  gameOverElements:
+  - {fileID: 1692271208}
+  - {fileID: 1064792406}
+  - {fileID: 1140851184}
 --- !u!225 &1145895377
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -15954,9 +15958,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1145895372}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1145895378
 MonoBehaviour:
@@ -26756,7 +26760,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode

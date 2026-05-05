@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace ZenGrid.UI
 {
@@ -21,6 +23,12 @@ namespace ZenGrid.UI
         [Header("Buttons")]
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _spectateButton;
+
+        [Header("References")] 
+        [SerializeField] private List<RectTransform> gameOverElements;
+        
+        bool _isSpectate = false;
+        
 
         protected override void Awake()
         {
@@ -58,6 +66,12 @@ namespace ZenGrid.UI
                 _finalBestScoreText.text = bestScore.ToString();
         }
 
+        public override void Show()
+        {
+            base.Show();
+            ChangeElementsVisibility(true); // Reset
+        }
+
         private void OnRestartClicked()
         {
             if (SoundManager.Instance != null)
@@ -69,10 +83,23 @@ namespace ZenGrid.UI
 
         private void OnSpectateClicked()
         {
+            // Effect
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
+            
+            // Logic
+            _isSpectate = !_isSpectate;
+            ZenGridManager.Instance.ToggleSpectateInGameOver();
 
-            ZenGridManager.Instance.ToggleSpectateInGameOver();      
+            ChangeElementsVisibility(!_isSpectate);
+        }
+
+        private void ChangeElementsVisibility(bool isVisible)
+        {
+            foreach (var element in gameOverElements)
+            {
+                element.gameObject.SetActive(isVisible);
+            }
         }
     }
 }

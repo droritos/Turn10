@@ -30,7 +30,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
   - key: 6
-    clip: {fileID: 8300000, guid: 986c0e4f98c089843896f730d9161bb1, type: 3}
+    clip: {fileID: 8300000, guid: 6edaf829fa7987e41a55beaac352dd68, type: 3}
     volume: 1
     pitch: 1
   - key: 4

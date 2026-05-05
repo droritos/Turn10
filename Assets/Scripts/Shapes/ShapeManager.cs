@@ -65,11 +65,17 @@ namespace ZenGrid
             for (int i = 0; i < _shapePool.Count; i++)
             {
                 // Only spawn if the slot is currently empty/inactive
+                
+                ShapeData randomShape = availableShapes[Random.Range(0, availableShapes.Count)];
+                _shapePool[i].Initialize(randomShape, _trayPositions[i],GetActiveThemeCellMetrial());
+                
+                /*
                 if (!_shapePool[i].gameObject.activeSelf)
                 {
                     ShapeData randomShape = availableShapes[Random.Range(0, availableShapes.Count)];
                     _shapePool[i].Initialize(randomShape, _trayPositions[i],GetActiveThemeCellMetrial());
                 }
+                */
             }
         }
 

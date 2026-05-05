@@ -12,18 +12,19 @@ namespace ZenGrid.UI
         [SerializeField] private GameModeConfig _pureZenConfig;
 
         [Header("Buttons")]
-        [SerializeField] private Button _playClassicButton;
+        //[SerializeField] private Button _playClassicButton;
         [SerializeField] private Button _playPureZenButton;
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _quitButton;
 
         private void Start()
         {
+            /*
             if (_playClassicButton != null)
                 _playClassicButton.onClick.AddListener(OnPlayClassicClicked);
             else
                 Debug.LogError("[MainMenuUI] Play Classic Button is NOT assigned in the Inspector!", this);
-
+            */
             if (_playPureZenButton != null)
                 _playPureZenButton.onClick.AddListener(OnPlayPureZenClicked);
             else
@@ -43,8 +44,10 @@ namespace ZenGrid.UI
 
         private void OnDestroy()
         {
+            /*
             if (_playClassicButton != null)
                 _playClassicButton.onClick.RemoveListener(OnPlayClassicClicked);
+                */
             if (_playPureZenButton != null)
                 _playPureZenButton.onClick.RemoveListener(OnPlayPureZenClicked);
             if (_quitButton != null)

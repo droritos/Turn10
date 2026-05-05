@@ -132,7 +132,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
     {
         // 1. If we are already dragging with another finger, ignore this touch!
         if (_activePointerId != -1000) return; 
-        if (!ZenGridManager.Instance.isGameActive) return;
+        if (!ZenGridManager.Instance.IsGameActive) return;
 
         // 2. Ignore if it's currently shrinking into the grid to be placed
         if (_isSettling && !_canvasGroup.blocksRaycasts) return;
@@ -187,7 +187,7 @@ public class DraggableShape : MonoBehaviour, IPointerDownHandler, IDragHandler, 
         // Ignore drags from other fingers
         if (eventData.pointerId != _activePointerId) return;
         
-        if (_isSettling || !ZenGridManager.Instance.isGameActive) return;
+        if (_isSettling || !ZenGridManager.Instance.IsGameActive) return;
         UpdatePosition(eventData);
         UpdateGhostHint();
     }

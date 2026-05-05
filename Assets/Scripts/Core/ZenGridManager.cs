@@ -7,10 +7,14 @@ namespace ZenGrid
 {
     public class ZenGridManager : MonoBehaviour
     {
+        
         public UnityAction ShapePlacedEvent;
+        public UnityAction OnGameStartedEvent;
         public static ZenGridManager Instance;
-
-        public bool isGameActive = false;
+        public bool IsGameActive {get; private set;}
+        
+        [Header("Settings")]
+        [SerializeField] private int maxShapedInTray = 3;
 
         private void Awake()
         {
@@ -29,21 +33,24 @@ namespace ZenGrid
 
         public void StartGame()
         {
-            isGameActive = true;
+            IsGameActive = true;
             
             // Ensure grid is clean and has correct Zen visuals
             GridSystem.Instance.InitializeGrid();
 
-            if (ShapeManager.Instance.ShapesInTray == 0)
+            if (ShapeManager.Instance.ShapesInTray != maxShapedInTray)
             {
                 ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
             }
+            
+            // Invoke Start!
+            OnGameStartedEvent?.Invoke();
         }
 
         [ContextMenu("Game Over")]
         public void GameOver()
         {
-            isGameActive = false;
+            IsGameActive = false;
 
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.GameOver);
 

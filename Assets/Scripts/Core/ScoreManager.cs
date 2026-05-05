@@ -7,13 +7,7 @@ namespace ZenGrid
     {
         public static ScoreManager Instance;
 
-        // ── PlayerPrefs key is mode-specific so Classic and Pure Zen track separately ──
-        // Legacy key (pre-mode-system) is migrated to Classic on first run.
-        private const string LegacyBestScoreKey = "ZenGrid_BestScore";
-        private const string BestScoreKeyPrefix  = "ZenGrid_BestScore_";
-
-        private string BestScoreKey =>
-            BestScoreKeyPrefix + (GameModeManager.Instance?.ModeName ?? "Classic");
+        private const string BestScoreKey = "ZenGrid_BestScore";
 
         private int _score = 0;
         private int _bestScore = 0;
@@ -25,32 +19,46 @@ namespace ZenGrid
 
         private void Awake()
         {
-            Instance = this;
-            MigrateLegacyBestScore();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             _bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
         }
 
-        /// <summary>
-        /// One-time migration: moves the old single best-score key to the Classic key.
-        /// Runs only when the old key exists and the Classic key does not yet.
-        /// </summary>
-        private void MigrateLegacyBestScore()
+        // ── Event Subscriptions ──
+
+        private void Start()
         {
-            const string classicKey = BestScoreKeyPrefix + "Classic";
-            if (PlayerPrefs.HasKey(LegacyBestScoreKey) && !PlayerPrefs.HasKey(classicKey))
+            // Subscribe to the event when this script starts
+            if (ZenGridManager.Instance != null)
             {
-                int legacyScore = PlayerPrefs.GetInt(LegacyBestScoreKey, 0);
-                PlayerPrefs.SetInt(classicKey, legacyScore);
-                PlayerPrefs.DeleteKey(LegacyBestScoreKey);
-                PlayerPrefs.Save();
-                Debug.Log($"[ScoreManager] Migrated legacy best score ({legacyScore}) → {classicKey}");
+                ZenGridManager.Instance.OnGameStartedEvent += ResetScore;
             }
         }
+
+        private void OnDestroy()
+        {
+            // ALWAYS unsubscribe when destroyed to prevent memory leaks!
+            if (ZenGridManager.Instance != null)
+            {
+                ZenGridManager.Instance.OnGameStartedEvent -= ResetScore;
+            }
+        }
+
+        // ── Core Logic ──
 
         public void UpdateScore(int add)
         {
             _score += add;
 
+            // This automatically handles updating the best score when you beat it!
             if (_score > _bestScore)
             {
                 _bestScore = _score;
@@ -68,12 +76,10 @@ namespace ZenGrid
 
         public void ResetScore()
         {
+            // Resets the current score back to 0 for the new game
             _score = 0;
             _currentPhase = 1;
-
-            // Reload the best score for the current mode (may differ from previous mode)
-            _bestScore = PlayerPrefs.GetInt(BestScoreKey, 0);
-
+            
             if (GameplayUI.Instance != null)
             {
                 GameplayUI.Instance.UpdateScoreDisplay(_score, _bestScore);

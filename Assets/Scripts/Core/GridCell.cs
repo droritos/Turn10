@@ -7,8 +7,9 @@ namespace ZenGrid
     public class GridCell : MonoBehaviour
     {
         public bool IsLotus {get ; private set;} = false;
+        public bool IsClearing {get ; private set;} = false;
         public bool IsOccupied => _currentColor.HasValue;
-        
+
         [field:SerializeField] public RectTransform MyRectTransform { get; private set; }
         [SerializeField] private Image _backgroundImage;
         [SerializeField] private Image _fillImage;
@@ -24,6 +25,7 @@ namespace ZenGrid
             if(!MyRectTransform)
                 MyRectTransform =  GetComponent<RectTransform>();
         }
+        
         private void Awake() => EnsureReferences();
 
         private void EnsureReferences()
@@ -46,6 +48,7 @@ namespace ZenGrid
             _backgroundImage.material = material;
             _fillImage.material = material;
         }
+        
         public void SetBackground(Color color)
         {
             EnsureReferences();
@@ -68,22 +71,39 @@ namespace ZenGrid
                     if (animate)
                     {
                         _fillImage.rectTransform.localScale = Vector3.zero;
-                        _fillImage.rectTransform.DOKill();   // ← ADD THIS
+                        _fillImage.rectTransform.DOKill();   
                         _fillImage.rectTransform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
                     }
-                    else { _fillImage.rectTransform.localScale = Vector3.one; }
+                    else 
+                    { 
+                        _fillImage.rectTransform.localScale = Vector3.one; 
+                    }
                 }
             }
             else
             {
-                if (_fillImage != null && animate)
+                // CLEARING LOGIC
+                if (_fillImage != null)
                 {
-                    _fillImage.rectTransform.DOKill();       // ← ADD THIS
-                    _fillImage.rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack)
-                        .OnComplete(() => { if (_fillImage != null) _fillImage.gameObject.SetActive(false); });
+                    if (animate)
+                    {
+                        IsClearing = true; // 1. Lock the cell from ghosts/interactions
+                        
+                        _fillImage.rectTransform.DOKill();       
+                        _fillImage.rectTransform.DOScale(Vector3.zero, 0.25f).SetEase(Ease.InBack)
+                            .OnComplete(() => 
+                            { 
+                                if (_fillImage != null) _fillImage.gameObject.SetActive(false); 
+                                IsClearing = false; // 2. Unlock it ONLY when the animation finishes
+                            });
+                    }
+                    else
+                    {
+                        _fillImage.gameObject.SetActive(false);
+                        IsClearing = false; // Ensure it's unlocked if we bypass animation
+                    }
                 }
             }
-
 
             if (_lotusVisual != null)
             {
@@ -93,6 +113,9 @@ namespace ZenGrid
 
         public void SetGhost(Color color)
         {
+            // 3. SAFETY GUARD: Don't draw a ghost if the cell is currently exploding
+            if (IsClearing) return; 
+
             EnsureReferences();
             if (_fillImage != null)
             {
@@ -104,6 +127,9 @@ namespace ZenGrid
 
         public void ClearGhost()
         {
+            // 3. SAFETY GUARD: Don't mess with visuals if the cell is currently exploding
+            if (IsClearing) return; 
+
             EnsureReferences();
             if (_fillImage == null) return;
 

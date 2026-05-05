@@ -25,13 +25,10 @@ public class JuiceManager : MonoBehaviour
             return;
         }
 
-        // If the serialized reference points to a Prefab asset (not a scene instance),
-        // instantiate it so we can safely move and emit from it at runtime.
         if (!uiParticle.gameObject.scene.IsValid())
         {
             Transform parent = canvasTransform != null ? canvasTransform : transform;
             uiParticle = Instantiate(uiParticle, parent);
-            Debug.Log("[JuiceManager] uiParticle was a prefab asset — instantiated into scene.", this);
         }
 
         if (uiParticle.particles.Count > 0)
@@ -41,10 +38,6 @@ public class JuiceManager : MonoBehaviour
             main.simulationSpace = ParticleSystemSimulationSpace.World;
             main.scalingMode = ParticleSystemScalingMode.Hierarchy;
         }
-        else
-        {
-            Debug.LogWarning("[JuiceManager] uiParticle has no particle systems — visual effects will be skipped.", this);
-        }
     }
 
     private void OnValidate()
@@ -53,18 +46,14 @@ public class JuiceManager : MonoBehaviour
             mainCamera = Camera.main;
     }
 
-    // Moves the UIParticle RectTransform to the target position, then emits.
-    // Never touch _petalParticles.transform directly — UIParticle owns its hierarchy.
     private void PositionAndEmit(Vector3 worldPosition, Color color, int count)
     {
         if (_petalParticles == null || uiParticle == null) return;
 
-        // Move the UIParticle container to the desired world position
         RectTransform uiRT = uiParticle.GetComponent<RectTransform>();
         if (uiRT != null)
         {
             uiRT.position = worldPosition;
-            // Keep Z = 0 in local space so particles aren't clipped behind the canvas
             var lp = uiRT.localPosition;
             uiRT.localPosition = new Vector3(lp.x, lp.y, 0f);
         }
@@ -103,7 +92,12 @@ public class JuiceManager : MonoBehaviour
     {
         if (canvasTransform != null)
         {
-            canvasTransform.DOComplete();
+            // Kill safely without forcing it to completion (which causes violent snapping)
+            canvasTransform.DOKill();
+            
+            // Reset to center just in case a previous shake left it slightly off-center
+            canvasTransform.localPosition = Vector3.zero; 
+            
             canvasTransform.DOShakePosition(duration, magnitude * 8f, 12, 90f, false, true);
         }
     }
@@ -112,7 +106,18 @@ public class JuiceManager : MonoBehaviour
     {
         if (blockRect == null) return;
 
-        blockRect.DOKill(true);
-        blockRect.DOPunchScale(Vector3.one * 0.3f, 0.3f, 1, 0.5f);
+        // Kill only the scale tween safely without fast-forwarding other animations
+        blockRect.DOKill(false);
+        
+        // Ensure scale is reset to 1 before we pop, so multiple fast pops don't compound and grow huge
+        blockRect.localScale = Vector3.one;
+
+        // A manual sequence is much more stable than DOPunchScale for rapid interruptions
+        Sequence popSeq = DOTween.Sequence();
+        popSeq.Append(blockRect.DOScale(Vector3.one * 1.3f, 0.15f).SetEase(Ease.OutQuad));
+        popSeq.Append(blockRect.DOScale(Vector3.one, 0.15f).SetEase(Ease.InQuad));
+        
+        // Bind the sequence to the block so it gets destroyed safely if the block is deleted
+        popSeq.SetTarget(blockRect); 
     }
 }

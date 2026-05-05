@@ -39,9 +39,12 @@ namespace ZenGrid
                 ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
             }
         }
+
         [ContextMenu("Game Over")]
         public void GameOver()
         {
+            isGameActive = false;
+
             if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.GameOver);
 
             if (GameOverUI.Instance != null)
@@ -50,15 +53,17 @@ namespace ZenGrid
             if (MenuManager.Instance != null)
                 MenuManager.Instance.OpenMenu(MenuType.GameOver);
         }
+
         public void ToggleSpectateInGameOver()
         {
             MenuManager.Instance.GetMenu(MenuType.Gameplay).ToggleSpectate();
         }
+
         public void OnShapePlaced(DraggableShape shape, int gridX, int gridY)
         {
             try
             {
-                // 1. Logic Placement
+                // 1. Logic Placement (GridSystem now automatically handles skipping the PopBlock if a clear happens)
                 GridSystem.Instance.PlaceShape(shape.ShapeData, gridX, gridY);
                 
                 // 2. Score for placing
@@ -68,14 +73,10 @@ namespace ZenGrid
                 if (JuiceManager.Instance != null) JuiceManager.Instance.ScreenShake(0.1f, 5f);
                 if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(SoundManager.SFXType.PlaceShape);
 
-               //// 4. Lotus Protocol
-               //LotusManager.Instance.SpreadLotus();
-               //LotusManager.Instance.OnTurnPassed(ScoreManager.Instance.CurrentPhase);
-
-                // 5. Line Checking
+                // 4. Line Checking (Executes instantly for maximum snappiness)
                 CheckLines();
 
-                // 6. Tray Management
+                // 5. Tray Management
                 ShapeManager.Instance.RemoveShapeFromTray(shape);
 
                 if (ShapeManager.Instance.ShapesInTray == 0)
@@ -83,7 +84,7 @@ namespace ZenGrid
                     ShapeManager.Instance.SpawnTrayShapes(ScoreManager.Instance.CurrentPhase);
                 }
 
-                // 7. Game Over Check
+                // 6. Game Over Check
                 if (!ShapeManager.Instance.CheckAnyShapeCanFit())
                 {
                     GameOver();
@@ -146,14 +147,7 @@ namespace ZenGrid
                 {
                     bool wasLotus = cell.IsLotus;
                     lastClearPos = cell.transform.position;
-                    
-                    /*
-                    if (JuiceManager.Instance != null)
-                    {
-                        if (wasLotus) JuiceManager.Instance.PlayExplosion(lastClearPos, Color.magenta);
-                        else JuiceManager.Instance.PlayPetals(lastClearPos, Color.white);
-                    }
-                    */
+              
                     GridSystem.Instance.ClearCell(pos.x, pos.y);
                     clearedCells++;
                 }
@@ -191,8 +185,6 @@ namespace ZenGrid
             }
         }
         
-        
-
         public void RestartGame()
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);

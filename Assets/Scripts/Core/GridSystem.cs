@@ -66,7 +66,7 @@ namespace ZenGrid
             return _gridCells[x, y];
         }
 
-        public bool CanPlaceShape(ShapeData shape, int gridX, int gridY)
+       public bool CanPlaceShape(ShapeData shape, int gridX, int gridY)
         {
             for (int y = 0; y < shape.height; y++)
             {
@@ -80,16 +80,17 @@ namespace ZenGrid
                         if (checkX < 0 || checkX >= _columns || checkY < 0 || checkY >= _rows)
                             return false;
 
-                        if (_gridCells[checkX, checkY].IsOccupied)
+                        // NEW: Don't allow placing a shape on a cell that is currently exploding/clearing!
+                        if (_gridCells[checkX, checkY].IsOccupied || _gridCells[checkX, checkY].IsClearing)
                             return false;
                     }
                 }
             }
             return true;
         }
-
         public void PlaceShape(ShapeData shape, int gridX, int gridY)
         {
+            // 1. Set the state for all cells in the grid (no animation yet)
             for (int y = 0; y < shape.height; y++)
             {
                 for (int x = 0; x < shape.width; x++)
@@ -99,11 +100,26 @@ namespace ZenGrid
                         int placeX = gridX + x;
                         int placeY = gridY + y;
                         _gridCells[placeX, placeY].SetState(shape.color, false, false);
-                        
-                        if (JuiceManager.Instance != null)
+                    }
+                }
+            }
+
+            // 2. Check if this placement just caused any lines to be full
+            GetFullLines(out var rowsToClear, out var colsToClear);
+            bool willClear = rowsToClear.Count > 0 || colsToClear.Count > 0;
+
+            // 3. ONLY play the "Pop" animation if we are NOT about to clear the line
+            if (!willClear && JuiceManager.Instance != null)
+            {
+                for (int y = 0; y < shape.height; y++)
+                {
+                    for (int x = 0; x < shape.width; x++)
+                    {
+                        if (shape.GetCell(x, y) == 1)
                         {
-                            //JuiceManager.Instance.PlayPetals(_gridCells[placeX, placeY].transform.position, shape.color);
-                            JuiceManager.Instance.PopBlock(_gridCells[placeX, placeY].GetComponent<RectTransform>());
+                            int placeX = gridX + x;
+                            int placeY = gridY + y;
+                            JuiceManager.Instance.PopBlock(_gridCells[placeX, placeY].MyRectTransform);
                         }
                     }
                 }
@@ -179,7 +195,12 @@ namespace ZenGrid
                     {
                         int placeX = gridX + x;
                         int placeY = gridY + y;
-                        _gridCells[placeX, placeY].SetGhost(shape.color);
+                        
+                        // NEW: Double check we aren't drawing a ghost over an exploding cell
+                        if (!_gridCells[placeX, placeY].IsClearing)
+                        {
+                            _gridCells[placeX, placeY].SetGhost(shape.color);
+                        }
                     }
                 }
             }
@@ -191,6 +212,9 @@ namespace ZenGrid
             {
                 for (int y = 0; y < _rows; y++)
                 {
+                    // NEW: If this cell is busy playing a clear animation, LEAVE IT ALONE!
+                    if (_gridCells[x, y].IsClearing) continue;
+                    
                     _gridCells[x, y].ClearGhost();
                 }
             }

@@ -7350,7 +7350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a51770ad6f9275439397678738800e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZenGridManager
-  isGameActive: 0
+  maxShapedInTray: 3
 --- !u!4 &555779416
 Transform:
   m_ObjectHideFlags: 0
@@ -15231,7 +15231,6 @@ MonoBehaviour:
   CanvasGroup: {fileID: 1115238705}
   _classicConfig: {fileID: 11400000, guid: ab172687305df80428ad8194ce7d1851, type: 2}
   _pureZenConfig: {fileID: 11400000, guid: 15a8d018655273a4d8912b77e7459a5b, type: 2}
-  _playClassicButton: {fileID: 0}
   _playPureZenButton: {fileID: 605585893}
   _settingsButton: {fileID: 1813045990}
   _quitButton: {fileID: 1349701888}
@@ -15734,7 +15733,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1151850718251952372, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -18449,7 +18448,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_text
-      value: 'Music
+      value: 'SFX
 
         On'
       objectReference: {fileID: 0}
@@ -18551,7 +18550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902828359015371502, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_Name
-      value: Music
+      value: Toggle Mute
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27993,7 +27992,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_text
-      value: 'SFX
+      value: 'Music
+
 
         On'
       objectReference: {fileID: 0}
@@ -28083,7 +28083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7902828359015371502, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_Name
-      value: SFX
+      value: Toggle Mute
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

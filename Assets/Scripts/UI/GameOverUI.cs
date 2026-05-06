@@ -77,8 +77,12 @@ namespace ZenGrid.UI
             if (SoundManager.Instance != null)
                 SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene(
-                UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            MenuManager.Instance.OpenMenu(MenuType.Gameplay);
+
+            if (ZenGridManager.Instance != null)
+                ZenGridManager.Instance.StartGame();
+            else
+                Debug.LogError("[MainMenuUI] ZenGridManager.Instance is null! Cannot start game.");
         }
 
         private void OnSpectateClicked()

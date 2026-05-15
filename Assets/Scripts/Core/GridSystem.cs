@@ -66,7 +66,7 @@ namespace ZenGrid
             return _gridCells[x, y];
         }
 
-       public bool CanPlaceShape(ShapeData shape, int gridX, int gridY)
+        public bool CanPlaceShape(ShapeData shape, int gridX, int gridY, bool ignoreClearing = false)
         {
             for (int y = 0; y < shape.height; y++)
             {
@@ -80,8 +80,12 @@ namespace ZenGrid
                         if (checkX < 0 || checkX >= _columns || checkY < 0 || checkY >= _rows)
                             return false;
 
-                        // NEW: Don't allow placing a shape on a cell that is currently exploding/clearing!
-                        if (_gridCells[checkX, checkY].IsOccupied || _gridCells[checkX, checkY].IsClearing)
+                        // Check if the cell is permanently occupied
+                        if (_gridCells[checkX, checkY].IsOccupied)
+                            return false;
+
+                        // Check if the cell is currently exploding/clearing!
+                        if (!ignoreClearing && _gridCells[checkX, checkY].IsClearing)
                             return false;
                     }
                 }

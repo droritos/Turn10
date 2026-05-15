@@ -76,7 +76,7 @@ public class SoundManager : MonoBehaviour
         
         SyncVolumes(); 
         
-        PlayNextMusic();
+        //PlayNextMusic(); // Ignore BG Music - Bad!
     }
 
     private void BuildSources()
@@ -94,6 +94,7 @@ public class SoundManager : MonoBehaviour
         _musicSource.playOnAwake = false;
         _musicSource.loop = false; // We'll manage looping/playlist manually
     }
+    /*
     private void Update()
     {
         // Simple playlist progression
@@ -102,7 +103,7 @@ public class SoundManager : MonoBehaviour
             PlayNextMusic();
         }
     }
-
+*/
     // ──────────────────────────────────────────────────────────
     //  Public API
     // ──────────────────────────────────────────────────────────

@@ -7,16 +7,16 @@ namespace ZenUI
 {
     public class ButtonUI : MonoBehaviour
     {
-        [field:SerializeField] public Button Button {get;private set;}
-        [field:SerializeField] public Image Image {get;private set;}
-        [field:SerializeField] public TextMeshProUGUI Text {get;private set;}
+        [field:SerializeField] public Button Button {get;protected set;}
+        [field:SerializeField] public Image Image {get;protected set;}
+        [field:SerializeField] public TextMeshProUGUI Text {get;protected set;}
 
         public void SetShader(Material material)
         {
             Image.material = material;
         }
 
-        private void OnValidate()
+        protected virtual void OnValidate()
         {
             if(!Button)
                 {

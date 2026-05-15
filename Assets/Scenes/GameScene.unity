@@ -1361,9 +1361,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116576642}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &116576646
 MonoBehaviour:
@@ -7745,7 +7745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_fontSize
-      value: 48.9
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1868448022197325828, guid: 706f81030f135db4a97e27b470f1315d, type: 3}
       propertyPath: m_fontSizeMax
@@ -14967,9 +14967,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115238702}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &1119788444
 GameObject:

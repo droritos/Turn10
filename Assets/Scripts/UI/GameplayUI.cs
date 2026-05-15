@@ -62,6 +62,7 @@ namespace ZenGrid.UI
         private void OnPauseClicked()
         {
             MenuManager.Instance.OpenMenu(MenuType.MainMenu);
+            SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
         }
     }
 }

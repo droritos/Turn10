@@ -7,18 +7,28 @@ namespace GameUI
 {
     public class ToggleSoundButtonUI : ButtonUI
     {
-        [SerializeField] Image soundOn;
-        [SerializeField] Image soundOff;
+        [Header("Visual Elements")]
+        [SerializeField] private Image soundOn;
+        [SerializeField] private Image soundOff;
 
         private bool _sfxMuted;
+
         private void Awake()
         {
-            _sfxMuted = PlayerPrefs.GetInt(SoundManager.PREF_SFX_MUTED,   0) == 1;
+            // 1. Load the saved state
+            _sfxMuted = PlayerPrefs.GetInt(SoundManager.PREF_SFX_MUTED, 0) == 1;
             
+            // 2. Listen to the click event
             this.Button.onClick.AddListener(ToggleSFX);
         }
 
-      
+        private void OnEnable()
+        {
+            // 3. FIX: Apply the loaded state and refresh visuals on startup
+            ApplySFXMute(_sfxMuted);
+            RefreshSFXButton();
+        }
+
         public void ToggleSFX()
         {
             _sfxMuted = !_sfxMuted;
@@ -30,19 +40,26 @@ namespace GameUI
 
             // Play a click ONLY if SFX is now unmuted so the user hears the confirmation
             if (!_sfxMuted && SoundManager.Instance != null)
+            {
                 SoundManager.Instance.PlaySFX(SoundManager.SFXType.ButtonClick);
+            }
         }
         
         private void ApplySFXMute(bool mute)
         {
             if (SoundManager.Instance != null)
+            {
                 SoundManager.Instance.SetSFXMuted(mute);
+            }
         }
+
         private void RefreshSFXButton()
         { 
-            //_sfxToggleButton.Text.SetText($"SFX\n{(_sfxMuted ? "Off" : "On")}");
-            soundOff.enabled = _sfxMuted;
-            soundOn.enabled = !_sfxMuted;
+            if (soundOff != null && soundOn != null)
+            {
+                soundOff.enabled = _sfxMuted;
+                soundOn.enabled = !_sfxMuted;
+            }
         }
     }
 }
